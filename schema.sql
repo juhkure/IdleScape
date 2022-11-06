@@ -1,6 +1,7 @@
 CREATE TABLE users (
-    name TEXT PRIMARY KEY,
-    password TEXT
+    id SERIAL PRIMARY KEY,
+    name UNIQUE TEXT,
+    password TEXT,
 );
 
 CREATE TABLE skills (
@@ -9,7 +10,7 @@ CREATE TABLE skills (
 );
 
 CREATE TABLE user_skills (
-    name TEXT REFERENCES users,
+    user_id INTEGER REFERENCES users,
     skill_id INTEGER REFERENCES skills,
     level INTEGER,
     experience INTEGER
@@ -18,6 +19,13 @@ CREATE TABLE user_skills (
 CREATE TABLE activities (
     id SERIAL PRIMARY KEY,
     name TEXT
+);
+
+CREATE TABLE user_activity (
+    name TEXT REFERENCES users,
+    activity_id INTEGER REFERENCES activities,
+    action_at TIMESTAMP
+    activity BOOLEAN
 );
 
 CREATE TABLE activity_skill (
