@@ -24,8 +24,8 @@ CREATE TABLE activities (
 CREATE TABLE user_activity (
     name TEXT REFERENCES users,
     activity_id INTEGER REFERENCES activities,
-    action_at TIMESTAMP
-    activity BOOLEAN
+    action_at TIMESTAMP,
+    active BOOLEAN
 );
 
 CREATE TABLE activity_skill (
