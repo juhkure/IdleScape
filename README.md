@@ -17,6 +17,6 @@ Player's skills are considered their "stats", and each of these stats/skills sta
 
 ## Plans
 
-The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 5 tables to track users, their skills, and their chosen activity.
+The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 6 tables to track users, their skills, and their chosen activity.
 
 Further plans consist of things like unlocks/achievements and items that allows the player to further plan and customize their progression but their implementation is for now, out of reach.
