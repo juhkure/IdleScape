@@ -6,10 +6,10 @@ Idlescape's goal isn't to provide a highly interactive gameplay loop but rather 
 
 The game's initial page allows the user to create and log in to their character/account. Upon logging in, the main page will show them:
 
--Skills and their levels
--Total level and experience
--User's current chosen activity
--Experience amount that the activity produces
+- Skills and their levels
+- Total level and experience
+- User's current chosen activity
+- Experience amount that the activity produces
 
 The player can choose an activity to log their participation in from a list of different activities. This chosen activity determines the amount of experience and the target skill this experience goes to. For example, a combat activity would reward the player with experience towards combat skills like strength and hitpoints. Or the player could choose a skilling activity like fishing to further their levels in the fishing skill.
 
