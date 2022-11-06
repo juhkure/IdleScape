@@ -5,6 +5,7 @@ A [RuneScape](https://www.runescape.com/) influenced idle/[incremental](https://
 Idlescape's goal isn't to provide a highly interactive gameplay loop but rather a casual experience that allows you to attend to life's boring but obligatory tasks like work and school, all the while you're gaining progression in a game!
 
 The game's initial page allows the user to create and log in to their character/account. Upon logging in, the main page will show them:
+
 -Skills and their levels
 -Total level and experience
 -User's current chosen activity
