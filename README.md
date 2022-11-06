@@ -15,7 +15,7 @@ The player can choose an activity to log their participation in from a list of d
 
 Player's skills are considered their "stats", and each of these stats/skills start from level 1 and can be levelled up all the way to 99. Each new level will require more experience than the previous one.
 
-# Plans
+## Plans
 
 The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 5 tables to track users, their skills, and their chosen activity.
 
