@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
-from database import init_db
+
 
 
 answer = input("Do you want to fill database? (y/n): ")
