@@ -1,7 +1,7 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name UNIQUE TEXT,
-    password TEXT,
+    name TEXT UNIQUE,
+    password VARCHAR(255)
 );
 
 CREATE TABLE skills (
@@ -22,7 +22,7 @@ CREATE TABLE activities (
 );
 
 CREATE TABLE user_activity (
-    name TEXT REFERENCES users,
+    user_id INTEGER REFERENCES users,
     activity_id INTEGER REFERENCES activities,
     action_at TIMESTAMP,
     active BOOLEAN
