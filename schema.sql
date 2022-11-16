@@ -5,31 +5,29 @@ CREATE TABLE users (
 );
 
 CREATE TABLE skills (
-    id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT PRIMARY KEY
 );
 
 CREATE TABLE user_skills (
     user_id INTEGER REFERENCES users,
-    skill_id INTEGER REFERENCES skills,
+    skill_name TEXT REFERENCES skills,
     level INTEGER,
     experience INTEGER
 );
 
 CREATE TABLE activities (
-    id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT PRIMARY KEY
 );
 
 CREATE TABLE user_activity (
     user_id INTEGER REFERENCES users,
-    activity_id INTEGER REFERENCES activities,
+    activity_name TEXT REFERENCES activities,
     action_at TIMESTAMP,
     active BOOLEAN
 );
 
 CREATE TABLE activity_skill (
-    activity_id INTEGER REFERENCES activities,
-    skill_id INTEGER REFERENCES skills,
+    activity_name TEXT REFERENCES activities,
+    skill_name TEXT REFERENCES skills,
     base_xp INTEGER
 );
