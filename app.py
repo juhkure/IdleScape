@@ -41,7 +41,7 @@ def login():
             return render_template("main_menu.html")
         else:
             return render_template("index.html", incorrect_password = True)
-            
+
 
 @app.route("/logout")
 def logout():
@@ -75,6 +75,9 @@ def create_account():
         sql = "INSERT INTO users (name, password) VALUES (:name, :password)"
         db.session.execute(sql, {"name":username, "password":password1})
         db.session.commit()
+        # Todo 
+        # Update database with user's skills etc here
+        # 
         return render_template("index.html", account_created = True)
     else:
         return render_template("new_account.html", passwords_non_matching = True)
