@@ -15,3 +15,7 @@ db = SQLAlchemy(app)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/create_account")
+def create_account():
+    return render_template("create_account.html")
