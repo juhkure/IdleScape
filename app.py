@@ -78,6 +78,9 @@ def create_account():
         # Todo 
         # Update database with user's skills etc here
         # 
+        with app.app_context():
+            create_user(app, username)
+            
         return render_template("index.html", account_created = True)
     else:
         return render_template("new_account.html", passwords_non_matching = True)
