@@ -1,15 +1,5 @@
-from flask import Flask
-from flask import g
-from flask_sqlalchemy import SQLAlchemy
-from os import getenv
+from .database_filler import fill_database
+# from .database_filler import drop_tables
+# from .database_filler import create_tables
 
-
-def create_app():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
-
-    from . import database_filler
-    with app.app_context():
-        database_filler.fill_database(app)
-
-    return app
+__all__ = ['fill_database']
