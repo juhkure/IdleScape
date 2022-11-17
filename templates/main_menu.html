@@ -1,0 +1,8 @@
+{% if session.username %}
+<h1> Main menu </h1>
+<p> You're logged in as {{ session.username }} </p>
+
+<a href="/logout">Log out</a>
+{% else %}
+<p> You're not logged in </p>
+{%  endif %}
