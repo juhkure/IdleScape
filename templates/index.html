@@ -1,2 +1,28 @@
-<title>Etusivu</title>
-<h1> title here </h1>
+<title>Frontpage</title>
+<h1> IdleScape </h1>
+<br>
+<h2> Log in here: </h2>
+<form action="/login" method="POST">
+    <p>Username:<br>
+    <input type="text" name="username"></p>
+    {% if name_not_exist %}
+        <p style="color:red">Such account doesn't exist!</p>
+    {% endif %}
+    <p>Password:<br>
+    <input type="password" name="password"></p>
+    {% if incorrect_password %}
+        <p style="color:red">Incorrect password!</p>
+    {% endif %}
+    <input type="submit" value="Log in">
+</form>
+
+{% if account_created %}
+    <p style="color:red;">Account successfully created!</p>
+    {% else %}
+        <br>
+{% endif %}
+
+<h2> Or create a new account: </h2>
+
+<a href="/new_account">Create account--></a>
+

@@ -1,0 +1,26 @@
+<h1>Create new account</h1>
+
+<a href="/"><--Go back</a>
+
+<form action="/create_account" method="POST">
+    <p>Username:<br>
+    <input type="text" name="username"></p>
+    {% if short_username %}
+        <p style="color:red">Name must be at least 4 characters long!</p>
+    {% endif %}
+    {% if username_taken %}
+        <p style="color:red">Name already taken!</p>
+    {% endif %}
+
+    <p>Password:<br>
+    <input type="password" name="password1"></p>
+    {% if passwords_non_matching %}
+        <p style="color:red">Passwords are not the same!</p>
+    {% endif %}
+    {% if short_password %}
+        <p style="color:red">Password must be at least 4 characters long!</p>
+    {% endif %}
+    <p>Password again:<br>
+    <input type="password" name="password2"></p>
+    <input type="submit" value="Create account">
+</form>
