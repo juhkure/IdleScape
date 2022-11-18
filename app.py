@@ -1,10 +1,22 @@
 from flask import Flask
 from flask import current_app, render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
-from os import getenv
+from os import getenv, path
 from database import *
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
+init_type = input("Select use case: (1) Local testing or (2) Production?")
+if init_type := 1:
+    if path.exists(".env"):
+        print("Assuming your .env file is already setup...")
+
+    else:
+        print("lmao")
+        f = open(".env", "x")
+        f.write("DATABASE_URL=postgresql:///user")
+        f.close()
+    
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 app.secret_key = getenv("SECRET_KEY")
