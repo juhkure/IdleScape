@@ -56,6 +56,8 @@ In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run
 * This allows you to run with all 1-3 testing modes (0 as well if you create .env) which if useful for testing.
 * Can be done in command line or with pgAdmin 4
 
+![test image](https://github.com/juhkure/IdleScape/blob/main/readme_images/create_user.png)
+
 
 #### or B: Create and name database freely ####
 
