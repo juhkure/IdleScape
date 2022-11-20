@@ -56,10 +56,39 @@ In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run
 * This allows you to run with all 1-3 testing modes (0 as well if you create .env) which if useful for testing.
 * Can be done in command line or with pgAdmin 4
 
-![test image](https://github.com/juhkure/IdleScape/blob/main/readme_images/create_user.png)
+#### pgAdmin 4 ####
 
+![Create user](https://github.com/juhkure/IdleScape/blob/main/readme_images/create_user.png)
+In pgAdmin4, create a user.
+
+![Name user](https://github.com/juhkure/IdleScape/blob/main/readme_images/user_name.png)
+Name the user 'idlescapetester' (same as in code)
+
+![Password](https://github.com/juhkure/IdleScape/blob/main/readme_images/password.png)
+In definition tab, add a password 'tsoha' (same as in code)
+
+![Can login](https://github.com/juhkure/IdleScape/blob/main/readme_images/can_login.png)
+In privileges tab, check 'Can login?' to ON
+Then press Save
+
+![Create database](https://github.com/juhkure/IdleScape/blob/main/readme_images/create_db.png)
+Now let's create a database
+
+![Name database](https://github.com/juhkure/IdleScape/blob/main/readme_images/db_name.png)
+Name the database to 'idlescapetestdb' (same as in code)
+
+![Set owner](https://github.com/juhkure/IdleScape/blob/main/readme_images/db_owner.png)
+Set the owner to the user we just created (idlescapetester)
+And press Save
+
+Now you should have the user and database created. Running the code in modes 1, 2, and 3 should work.
+
+You can also create .env file in root directory with database url and secret key according to these variables if you wish to use mode 0 as well.
 
 #### or B: Create and name database freely ####
+
+Steps are same as above but naming can be done freely. This requires you to setup a .env file with DATABASE_URL and SECRET_KEY according to your naming.
+However you can only use run_mode 0 
 
 winpty python -m venv venv
 . venv/Scripts/activate
