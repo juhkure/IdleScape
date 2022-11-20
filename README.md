@@ -81,7 +81,7 @@ In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run
 
 **CAUTION* Testing mode 1 requires your postgres password to create the testing database and a user for it. Do a manual setup instead if that worries you.
 
-Then run flask from virtualenvironment (source venv/bin/activate):
+Then run flask from virtualenvironment (which we activated before):
 
 ```
 (venv) $ flask run
@@ -89,8 +89,8 @@ Then run flask from virtualenvironment (source venv/bin/activate):
 
 ## Manual setup
 
-#### Option A: Create and name database according to variables found in code 
-* This allows you to run with all 1-3 testing modes (0 as well if you create .env) which if useful for testing.
+#### Option A: Create and name database according to variables found in code (steps shown with pictures)
+* This allows you to run with all 1-3 testing/run modes (0 as well if you create .env) which if useful for testing.
 * Can be done in command line or with pgAdmin 4
 
 #### With pgAdmin 4: ####
