@@ -15,7 +15,19 @@ The player can choose an activity to log their participation in from a list of d
 
 Player's skills are considered their "stats", and each of these stats/skills start from level 1 and can be levelled up all the way to 99. Each new level will require more experience than the previous one.
 
-## Plans
+## Features
+
+Things (hopefully) working currently are:
+* Ability to create a user and a database to PostgreSQL
+* Add/remove tables from this database. Adding is done using [schema.sql](https://github.com/juhkure/IdleScape/blob/main/schema.sql)
+* Populate these tables according to current gamedesign
+* Show basic html pages for login and account creation
+* Accounts can be created and used to log in.
+* New account creates necessary rows in database for game logic. Password is hashed.
+
+
+
+# Plans
 
 The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 6 tables to track users, their skills, and their chosen activity.
 
