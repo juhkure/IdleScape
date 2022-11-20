@@ -1,4 +1,3 @@
-import database
 from flask import Flask
 from flask import current_app, render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
@@ -6,25 +5,11 @@ from os import path, getenv
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 
+app = Flask(__name__)
 
 
-init_type = input("Select use case: (1) Local testing/development or (2) Production?: ")
-if init_type == "1":
-    created_new = database.new_database()
-    test_database_url = ("postgresql://" + database.database_user + ":" + database.user_password + "@/" + database.database_name + "")
 
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = test_database_url
-    app.secret_key = "12345qwertasdfgzxcvb6789yuiohjkl"
-    if not created_new:
-        with app.app_context():
-            database.delete_tables(app)
-elif init_type == "2":
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
-    app.secret_key = getenv("SECRET_KEY")
-
-
+import database
 
 with app.app_context():
     database.create_tables(app)
@@ -118,5 +103,5 @@ def create_account():
 
 @app.route("/update_activity", methods=["POST"])
 def update_activity():
-    
+
     return
