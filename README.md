@@ -26,7 +26,6 @@ Things (hopefully) working currently are:
 * New account creates necessary rows in database for game logic. Password is hashed.
 
 
-
 # Plans
 
 The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 6 tables to track users, their skills, and their chosen activity.
