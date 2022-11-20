@@ -1,4 +1,4 @@
-from db import db
+from database.db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session
 from datetime import datetime
@@ -44,7 +44,6 @@ def create(username, password1, password2):
                   "VALUES (:user_id, :activity_name, :action_at, :active)"
             db.session.execute(sql, {"user_id":user_id, "activity_name":activity[0], "action_at":datetime.now(), "active":False})
             db.session.commit()
-
         return 5
 
 def login(username, password):

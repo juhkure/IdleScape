@@ -1,7 +1,6 @@
 import time
 import psycopg2
 from getpass import getpass
-from flask_sqlalchemy import SQLAlchemy
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from flask import current_app
 
@@ -54,6 +53,8 @@ def new_database():
         return True
 
 def create_tables():
+    from .db import db
+
     answer = input("Create new tables from schema.sql file? (Y/n): ")
     if answer == "n":
         return
@@ -70,26 +71,31 @@ def create_tables():
         
 
 def delete_tables():
+    from .db import db
+
     terminal_scroll(2)
     answer = input("Do you wish to delete all tables? (YES/n): ")
     if answer == "n":
         return
     elif answer == "YES":
-        db.session.execute("DROP TABLE activity_skill")
-        db.session.commit()
-        db.session.execute("DROP TABLE user_activity")
-        db.session.commit()
-        db.session.execute("DROP TABLE user_skills")
-        db.session.commit()
-        db.session.execute("DROP TABLE activities")
-        db.session.commit()
-        db.session.execute("DROP TABLE skills")
-        db.session.commit()
-        db.session.execute("DROP TABLE users")
-        db.session.commit()
-        sleep()
-        print("All tables dropped!\n")
-        sleep()
+        try:
+            db.session.execute("DROP TABLE activity_skill")
+            db.session.commit()
+            db.session.execute("DROP TABLE user_activity")
+            db.session.commit()
+            db.session.execute("DROP TABLE user_skills")
+            db.session.commit()
+            db.session.execute("DROP TABLE activities")
+            db.session.commit()
+            db.session.execute("DROP TABLE skills")
+            db.session.commit()
+            db.session.execute("DROP TABLE users")
+            db.session.commit()
+            sleep()
+            print("All tables dropped!\n")
+            sleep()
+        except psycopg2.Error:
+            print("No tables!")
 
 def terminal_scroll(length):
     if length := 2:
