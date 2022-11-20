@@ -23,6 +23,12 @@ Further plans consist of things like unlocks/achievements and items that allows 
 
 # Instructions for testing
 
+### Testing requirements ###
+
+* [PostgreSQL](https://www.postgresql.org/download/ "PostgreSQL download page")
+* Python
+
+
 ## Windows
 
 You can follow the Linux steps down below mostly the same, however there's few steps that you might want to look out for:
