@@ -71,7 +71,7 @@ $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
-### Automatic setup ###
+## Automatic setup
 
 In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run according to .env variables or create and use a test database.
 * 0 | Creates database connection according to .env variables and allows no configuration.
@@ -81,9 +81,15 @@ In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run
 
 **CAUTION* Testing mode 1 requires your postgres password to create the testing database and a user for it. Do a manual setup instead if that worries you.
 
-### Manual setup ###
+Then run flask from virtualenvironment (source venv/bin/activate):
 
-#### A: Create and name database according to variables found in code ####
+```
+(venv) $ flask run
+```
+
+## Manual setup
+
+#### Option A: Create and name database according to variables found in code 
 * This allows you to run with all 1-3 testing modes (0 as well if you create .env) which if useful for testing.
 * Can be done in command line or with pgAdmin 4
 
@@ -127,7 +133,7 @@ CREATE USER idlescapetester WITH PASSWORD 'tsoha' CREATEDB;
 CREATE DATABASE idlescapetestdb WITH OWNER idlescapetester;
 ```
 
-#### or B: Create and name database freely ####
+#### or option B: Create and name database freely
 
 Steps are same as above but naming can be done freely. This requires you to setup a .env file with DATABASE_URL and SECRET_KEY according to your naming.
 However you can only use run_mode 0 
