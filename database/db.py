@@ -5,6 +5,7 @@ from database import *
 
 created_new = False
 
+# Initial configuration according to run_mode
 if run_mode == 0:
     app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
     app.secret_key = getenv("SECRET_KEY")

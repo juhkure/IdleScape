@@ -8,6 +8,7 @@ database_user = 'idlescapetester'
 database_name = 'idlescapetestdb'
 user_password = 'tsoha'
 
+# Creates a database using postgres
 def new_database():
     terminal_scroll(2)
     print("(FIRST RUN) Initializes test setup with database and user.")
@@ -51,7 +52,8 @@ def new_database():
 
         cursor.close()
         return True
-
+        
+# Creates tables according to schema.sql
 def create_tables():
     from .db import db
 
@@ -69,7 +71,7 @@ def create_tables():
         print("Tables created! (Or they already exist)")
         terminal_scroll(2)
         
-
+# Deletes all tables, causes problems if said tables don't exist
 def delete_tables():
     from .db import db
 
@@ -97,6 +99,7 @@ def delete_tables():
         except psycopg2.Error:
             print("No tables!")
 
+# Used to make terminal configuration more readable and interactive
 def terminal_scroll(length):
     if length := 2:
         sleep()

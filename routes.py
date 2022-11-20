@@ -37,18 +37,22 @@ def create_account():
     password2 = request.form["password2"]
 
     confirmation = account.create(username, password1, password2)
-    if confirmation == 1:
+    if confirmation == 1: # Name taken
         return render_template("new_account.html", username_taken = True)
-    if confirmation == 2:
+
+    if confirmation == 2: # Short name
         return render_template("new_account.html", short_username = True)
-    if confirmation == 3:
+
+    if confirmation == 3: # Short password
         return render_template("new_account.html", short_password = True)
-    if confirmation == 4:
+
+    if confirmation == 4: # Passwords don't match
         return render_template("new_account.html", passwords_non_matching = True)
-    if confirmation == 5:
+        
+    if confirmation == 5: # Success!
         return render_template("index.html", account_created = True)
 
 @app.route("/update_activity", methods=["POST"])
 def update_activity():
-
+    # Todo
     return

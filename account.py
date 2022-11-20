@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session
 from datetime import datetime
 
-
+# Successful creation returns 5
 def create(username, password1, password2):
     sql = "SELECT name FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username":username})
@@ -18,15 +18,18 @@ def create(username, password1, password2):
     if password1 != password2:
         return 4
     else:
+        # Save account with hashed password
         password1 = generate_password_hash(password1)
         sql = "INSERT INTO users (name, password) VALUES (:name, :password)"
         db.session.execute(sql, {"name":username, "password":password1})
         db.session.commit()
 
+        # Get user's ID
         sql = "SELECT id FROM users WHERE name=:username"
         result = db.session.execute(sql, {"username":username})
         user_id = result.fetchone()[0]
 
+        # Add skills for user
         result = db.session.execute("SELECT name FROM skills")
         skills = result.fetchall()
         for skill in skills:
@@ -36,6 +39,7 @@ def create(username, password1, password2):
             db.session.execute(sql, {"user_id":user_id, "skill_name":skill[0], "level":int(1), "experience":int(1)})
             db.session.commit()
 
+        # Add activities for user
         result = db.session.execute("SELECT name FROM activities")
         activities = result.fetchall()
         for activity in activities:
