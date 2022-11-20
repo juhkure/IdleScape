@@ -1,15 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import current_app
 
 
 def fill_database(app):
-    db = SQLAlchemy(app)
-
-    answer = input("Empty tables?: (Y/n): ")
-    if answer == "Y":
-        empty_tables(db)
-
     answer = input("Do you want to fill database? (y/n): ")
-    if answer == "y":
+    if answer == "n":
+        return
+    elif answer == "y":
+        db = SQLAlchemy(app)
         print("ok")
         db.session.execute("BEGIN")
         insert_activities(db)
@@ -44,8 +42,16 @@ def insert_activity_skill(database):
     database.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('pray', 'prayer', 100)")
 
 
-def empty_tables(database):
-    database.session.execute("DELETE FROM activity_skill")
-    database.session.execute("DELETE FROM activities")
-    database.session.execute("DELETE FROM skills")
-    database.session.commit()
+def empty_tables(app):
+    answer = input("Empty tables?: (Y/n): ")
+    if answer == "n":
+        return
+    elif answer == "Y":
+        db = SQLAlchemy(current_app)
+        db.session.execute("DELETE FROM activity_skill")
+        db.session.execute("DELETE FROM activities")
+        db.session.execute("DELETE FROM skills")
+        db.session.execute("DELETE FROM user_activity")
+        db.session.execute("DELETE FROM user_skills")
+        db.session.execute("DELETE FROM users")
+        db.session.commit()
