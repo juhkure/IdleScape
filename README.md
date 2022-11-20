@@ -25,20 +25,31 @@ Further plans consist of things like unlocks/achievements and items that allows 
 
 ## Windows
 
-Steps are mostly the same as with linux systems down below. However some commands might not work the same.
-For example:
+You can follow the Linux steps mostly the same, however there's few steps that you might want to look out for:
 
 ```
-python3 -m venv venv
+$ python3 -m venv venv
 ```
 
-might or might not work, try using
+might or might not work, if not, try using
 
-´´´
-winpty python -m venv venv
-´´´
+```
+$ winpty python -m venv venv
+```
 
+Also the next step where we activate venv. For windows depending on the terminal of you're using:
 
+```
+. venv/Scripts/activate
+```
+ |
+(NOTE, there's a space after the initial dot.)
+
+or 
+
+```
+. /venv/Scripts/activate
+```
 
 ## Linux
 
@@ -117,6 +128,3 @@ CREATE DATABASE idlescapetestdb WITH OWNER idlescapetester;
 
 Steps are same as above but naming can be done freely. This requires you to setup a .env file with DATABASE_URL and SECRET_KEY according to your naming.
 However you can only use run_mode 0 
-
-winpty python -m venv venv
-. venv/Scripts/activate
