@@ -5,6 +5,15 @@ from os import path, getenv
 
 app = Flask(__name__)
 
+################################################################
+# Change this to:
+# 0 | Normal run from .env variables
+# 1 | Local testing with database creation/modification included
+# 2 | Local testing with instant run (no terminal configuration)
+run_mode = 1
+################################################################
+
+
 import routes
 
 
