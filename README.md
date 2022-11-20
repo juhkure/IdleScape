@@ -42,9 +42,7 @@ Also the next step where we activate venv. For windows depending on the terminal
 ```
 . venv/Scripts/activate
 ```
-
-(NOTE, there's a space after the initial dot.)
-or 
+or    (NOTE, there's a space after the initial dot.) 
 
 ```
 . /venv/Scripts/activate
