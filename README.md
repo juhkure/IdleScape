@@ -23,6 +23,23 @@ Further plans consist of things like unlocks/achievements and items that allows 
 
 # Instructions for testing
 
+## Windows
+
+Steps are mostly the same as with linux systems down below. However some commands might not work the same.
+For example:
+
+```
+python3 -m venv venv
+```
+
+might or might not work, try using
+
+´´´
+winpty python -m venv venv
+´´´
+
+
+
 ## Linux
 
 ```sh
@@ -56,7 +73,7 @@ In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run
 * This allows you to run with all 1-3 testing modes (0 as well if you create .env) which if useful for testing.
 * Can be done in command line or with pgAdmin 4
 
-#### pgAdmin 4 ####
+#### With pgAdmin 4: ####
 
 ![Create user](https://github.com/juhkure/IdleScape/blob/main/readme_images/create_user.png)
 In pgAdmin4, create a user.
@@ -78,12 +95,23 @@ Now let's create a database
 Name the database to 'idlescapetestdb' (same as in code)
 
 ![Set owner](https://github.com/juhkure/IdleScape/blob/main/readme_images/db_owner.png)
-Set the owner to the user we just created (idlescapetester)
-And press Save
+Set the owner to the user we just created (idlescapetester) and press Save
 
 Now you should have the user and database created. Running the code in modes 1, 2, and 3 should work.
 
 You can also create .env file in root directory with database url and secret key according to these variables if you wish to use mode 0 as well.
+
+#### In terminal: ####
+
+Connect to postgres and enter the following:
+
+```
+CREATE USER idlescapetester WITH PASSWORD 'tsoha' CREATEDB;
+```
+
+```
+CREATE DATABASE idlescapetestdb WITH OWNER idlescapetester;
+```
 
 #### or B: Create and name database freely ####
 
