@@ -1,11 +1,9 @@
-from flask import Flask, session
 import time
 import psycopg2
 from getpass import getpass
-from os import path
-import secrets
 from flask_sqlalchemy import SQLAlchemy
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from flask import current_app
 
 database_user = 'idlescapetester'
 database_name = 'idlescapetestdb'
@@ -55,7 +53,7 @@ def new_database():
         cursor.close()
         return True
 
-def create_tables(app):
+def create_tables():
     answer = input("Create new tables from schema.sql file? (Y/n): ")
     if answer == "n":
         return
@@ -64,21 +62,19 @@ def create_tables(app):
         print("Creating new tables from schema.sql...")
         sleep()
 
-        db = SQLAlchemy(app)
-        with app.open_resource('schema.sql', mode='r') as sql_file:
+        with current_app.open_resource('schema.sql', mode='r') as sql_file:
             db.session.execute(sql_file.read())
         db.session.commit()
         print("Tables created! (Or they already exist)")
         terminal_scroll(2)
         
 
-def delete_tables(app):
+def delete_tables():
     terminal_scroll(2)
     answer = input("Do you wish to delete all tables? (YES/n): ")
     if answer == "n":
         return
     elif answer == "YES":
-        db = SQLAlchemy(app)
         db.session.execute("DROP TABLE activity_skill")
         db.session.commit()
         db.session.execute("DROP TABLE user_activity")
