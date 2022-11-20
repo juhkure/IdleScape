@@ -41,13 +41,14 @@ $ source venv/bin/activate
 ```
 
 ### Automatic setup ###
-In app.py there's a variable 'run_mode' on line 14 and by changing it you can choose if you wish to run according to .env variables or create and use a test database.
+
+In app.py on line 14 variable 'run_mode' allows you to choose if you wish to run according to .env variables or create and use a test database.
 * 0 | Creates database connection according to .env variables and allows no configuration.
 * 1 | Testing mode that creates a new database and a user for it. **Recommended for first run!** *
 * 2 | Testing mode that uses the database and user created in run mode 1. Also allows resetting tables and populating the database from schema.sql and table filling with database/database_filler.py
 * 3 | Quick testing mode. Skips all configuration in previous modes and assumes test database and user have already been created.
 
-* ** CAUTION ** Testing mode 1 requires your postgres password to create the testing database and a user for it. Do a manual setup instead if that worries you.
+*** CAUTION ** Testing mode 1 requires your postgres password to create the testing database and a user for it. Do a manual setup instead if that worries you.
 
 ### Manual setup ###
 
