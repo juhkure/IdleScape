@@ -25,7 +25,7 @@ Further plans consist of things like unlocks/achievements and items that allows 
 
 ## Windows
 
-You can follow the Linux steps mostly the same, however there's few steps that you might want to look out for:
+You can follow the Linux steps down below mostly the same, however there's few steps that you might want to look out for:
 
 ```
 $ python3 -m venv venv
@@ -42,9 +42,8 @@ Also the next step where we activate venv. For windows depending on the terminal
 ```
 . venv/Scripts/activate
 ```
- |
-(NOTE, there's a space after the initial dot.)
 
+(NOTE, there's a space after the initial dot.)
 or 
 
 ```
