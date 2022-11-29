@@ -50,6 +50,10 @@ def create(username, password1, password2):
             db.session.commit()
         return 5
 
+def set_activity():
+    # TODO set an activity as active for user
+    return
+
 def login(username, password):
     sql = "SELECT id, password FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username":username})
