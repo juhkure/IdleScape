@@ -24,6 +24,8 @@ Things (hopefully) working currently are:
 * Show basic html pages for login and account creation
 * Accounts can be created and used to log in.
 * New account creates necessary rows in database for game logic. Password is hashed.
+* User can select an active activity for their account.
+* Selecting an activity rewards the account with experience with previously active activity.
 
 
 # Plans
