@@ -16,10 +16,15 @@
     <input type="submit" value="Set activity!">
 </form>
 
-{% with messages = get_flashed_messages() %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for message in messages %}
-            <p> Activity <strong> {{ message }}</strong> currently active!</p>
+            {% if message.0 == "error" %}
+                <p style="color:red"><strong> {{ message.1 }} </strong></p>
+            {% else %}
+                <p> Activity <strong> {{ message.1 }}</strong> succesfully activated!</p>
+            {% endif %}
         {% endfor %}
     {% endif %}
 {% endwith %}
@@ -28,6 +33,14 @@
 {% if error %}
     <p style="color:red"><strong>Error: {{error}}</strong></p>
 {% endif %}
+
+
+Skill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience       
+<hr>
+{% for skill in skills %}
+{{ skill.skill_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ skill.level }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ skill.experience }}
+<hr>
+{% endfor %}
 
 <a href="/logout">Log out</a>
 {% else %}

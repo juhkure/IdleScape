@@ -1,6 +1,6 @@
 from app import app
 import account
-from flask import render_template, request, session, redirect, flash
+from flask import render_template, request, session, redirect, flash, url_for
 
 
 
@@ -10,7 +10,10 @@ def index():
 
 @app.route("/main_menu")
 def main_menu():
-    return render_template("main_menu.html")
+    account_skills = account.get_account_skills()
+    skills = account_skills.fetchall()
+
+    return render_template("main_menu.html", skills=skills)
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -60,15 +63,14 @@ def create_account():
 
 @app.route("/set_activity", methods=["POST"])
 def set_activity():
-    error = None
     activity = request.form["activity"]
     if activity != "not selected":
         account.set_activity(activity)
-        flash(activity)
+        flash(activity, "activity")
     else:
-        error = "Activity not selected!"
+        flash("Activity not selected!", "error")
 
-    return render_template("main_menu.html", error=error)
+    return redirect("/main_menu")
 
     # Todo fetch selected activity and assign it to user
 
