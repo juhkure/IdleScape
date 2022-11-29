@@ -8,6 +8,10 @@ from flask import render_template, request, session, redirect
 def index():
     return render_template("index.html")
 
+@app.route("/main_menu")
+def main_menu():
+    return render_template("main_menu.html")
+
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
@@ -18,7 +22,7 @@ def login():
         return render_template("index.html", name_not_exist = True)
 
     if confirmation == 2: # Success!
-            return render_template("main_menu.html")
+            return redirect("/main_menu")
 
     if confirmation == 3: # Incorrect password
             return render_template("index.html", incorrect_password = True)
@@ -59,7 +63,7 @@ def set_activity():
     activity = request.form["activity"]
     account.set_activity(activity)
 
-    return render_template("main_menu.html")
+    return redirect("/main_menu")
 
     # Todo fetch selected activity and assign it to user
 

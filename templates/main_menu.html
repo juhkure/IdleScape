@@ -4,11 +4,14 @@
 
 
 <form action="/set_activity" method="POST">
-    <p>Activity:<br>
-    <input type="text" name="activity"></p>
+    <select name="activity" type="text" placeholder="Select activity">
+        <option value="combat">Combat</option>
+        <option value="fishing">Fishing</option>
+        <option value="parkour">Parkour</option>
+        <option value="pray">Pray</option>
+    </select>
     <input type="submit" value="Set activity!">
 </form>
-
 
 <a href="/logout">Log out</a>
 {% else %}
