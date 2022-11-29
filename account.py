@@ -62,6 +62,7 @@ def set_activity(activity):
     db.session.execute(sql, {"active":True, "current_time":datetime.now(), "user_id":user_id, "activity":activity})
     db.session.commit()
 
+# Rewards user with accumulated experience if active activity found
 def reward_activity():
     user_id = session["user_id"]
     now = datetime.now()
