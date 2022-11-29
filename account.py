@@ -2,6 +2,7 @@ from database.db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session
 from datetime import datetime
+import math
 
 # Successful account creation returns 5
 def create(username, password1, password2):
@@ -79,10 +80,24 @@ def reward_activity():
 
         # Calculate experience earned for all skills, then insert it to user_skills
         for activity_skill in activity_skills:
+            current_xp_sql = "SELECT experience FROM user_skills WHERE user_id=:user_id AND skill_name=:name"
+            result = db.session.execute(current_xp_sql, {"user_id":user_id, "name":activity_skill.skill_name})
+            current_xp = result.fetchone()[0]
             gained_xp = (passed_time_in_seconds / 100 ) * activity_skill.base_xp
 
-            xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp WHERE user_id=:user_id AND skill_name=:skill"
-            db.session.execute(xp_insert_sql, {"gained_xp":gained_xp, "user_id":user_id, "skill":activity_skill.skill_name})
+            new_xp = current_xp + gained_xp
+            # Calculate new level based on new_xp
+            new_level = 0
+            required_xp = 0
+            for i in range(1,99):
+                required_xp += math.floor(i + 300 * pow(2, i/7))
+                if new_xp < (math.floor(required_xp/4)):
+                    new_level = i
+                    break
+
+
+            xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp, level=:new_level WHERE user_id=:user_id AND skill_name=:skill"
+            db.session.execute(xp_insert_sql, {"gained_xp":gained_xp, "new_level":new_level, "user_id":user_id, "skill":activity_skill.skill_name})
             db.session.commit()
         
         # Set user_activity back to False
