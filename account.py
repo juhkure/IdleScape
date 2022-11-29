@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session
 from datetime import datetime
 
-# Successful creation returns 5
+# Successful account creation returns 5
 def create(username, password1, password2):
     sql = "SELECT name FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username":username})
