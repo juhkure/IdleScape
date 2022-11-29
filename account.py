@@ -54,6 +54,7 @@ def set_activity():
     # TODO set an activity as active for user
     return
 
+# Succesful login returns 2
 def login(username, password):
     sql = "SELECT id, password FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username":username})

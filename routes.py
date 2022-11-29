@@ -14,11 +14,11 @@ def login():
     password = request.form["password"]
     confirmation = account.login(username, password)
 
-    if confirmation == 1:
+    if confirmation == 1: # User not found
         return render_template("index.html", name_not_exist = True)
-    if confirmation == 2:
+    if confirmation == 2: # Success!
             return render_template("main_menu.html")
-    if confirmation == 3:
+    if confirmation == 3: # Incorrect password
             return render_template("index.html", incorrect_password = True)
 
 @app.route("/logout")
@@ -54,6 +54,8 @@ def create_account():
 
 @app.route("/set_activity", methods=["POST"])
 def set_activity():
+    activity = request.form["activity"]
+
     # Todo fetch selected activity and assign it to user
 
 @app.route("/update_activity", methods=["POST"])
