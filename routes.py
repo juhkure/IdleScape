@@ -52,6 +52,10 @@ def create_account():
     if confirmation == 5: # Success!
         return render_template("index.html", account_created = True)
 
+@app.route("/set_activity", methods=["POST"])
+def set_activity():
+    # Todo fetch selected activity and assign it to user
+
 @app.route("/update_activity", methods=["POST"])
 def update_activity():
     # Todo
