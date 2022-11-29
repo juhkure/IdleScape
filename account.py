@@ -93,6 +93,13 @@ def reward_activity():
     else:
         return False
 
+def get_account_skills():
+    user_id = session["user_id"]
+    sql = "SELECT skill_name, level, experience FROM user_skills WHERE user_id=:user_id ORDER BY skill_name"
+    result = db.session.execute(sql, {"user_id":user_id})
+
+    return result
+
 # Succesful login returns 2
 def login(username, password):
     sql = "SELECT id, password FROM users WHERE name=:username"
