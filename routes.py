@@ -12,12 +12,14 @@ def index():
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    confirmation = account.login(username, password)
 
+    confirmation = account.login(username, password)
     if confirmation == 1: # User not found
         return render_template("index.html", name_not_exist = True)
+
     if confirmation == 2: # Success!
             return render_template("main_menu.html")
+            
     if confirmation == 3: # Incorrect password
             return render_template("index.html", incorrect_password = True)
 
