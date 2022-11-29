@@ -1,10 +1,13 @@
+<title>Main Menu</title>
+
 {% if session.username %}
 <h1> Main menu </h1>
 <p> You're logged in as {{ session.username }} </p>
 
 
 <form action="/set_activity" method="POST">
-    <select name="activity" type="text" placeholder="Select activity">
+    <select name="activity" type="text">
+        <option value="not selected" selected hidden>Select activity</option>
         <option value="combat">Combat</option>
         <option value="fishing">Fishing</option>
         <option value="parkour">Parkour</option>
@@ -12,6 +15,19 @@
     </select>
     <input type="submit" value="Set activity!">
 </form>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p> Activity <strong> {{ message }}</strong> currently active!</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+
+{% if error %}
+    <p style="color:red"><strong>Error: {{error}}</strong></p>
+{% endif %}
 
 <a href="/logout">Log out</a>
 {% else %}
