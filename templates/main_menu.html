@@ -2,6 +2,14 @@
 <h1> Main menu </h1>
 <p> You're logged in as {{ session.username }} </p>
 
+
+<form action="/set_activity" method="POST">
+    <p>Activity:<br>
+    <input type="text" name="activity"></p>
+    <input type="submit" value="Set activity!">
+</form>
+
+
 <a href="/logout">Log out</a>
 {% else %}
 <p> You're not logged in </p>

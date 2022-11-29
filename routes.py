@@ -19,7 +19,7 @@ def login():
 
     if confirmation == 2: # Success!
             return render_template("main_menu.html")
-            
+
     if confirmation == 3: # Incorrect password
             return render_template("index.html", incorrect_password = True)
 
@@ -57,6 +57,9 @@ def create_account():
 @app.route("/set_activity", methods=["POST"])
 def set_activity():
     activity = request.form["activity"]
+    account.set_activity(activity)
+
+    return render_template("main_menu.html")
 
     # Todo fetch selected activity and assign it to user
 
