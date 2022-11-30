@@ -2,7 +2,10 @@
 h1 {
     /* background-color: rgba(197, 96, 96, 0.363); */
     text-shadow: 2px 2px 5px rgb(145, 6, 6);
-    margin-left: 2em;
+    font-size: 48px;
+    margin-bottom: 0.3em;
+    margin-left: 0.7em;
+    margin-top: 0.45em;
 }
 
 body {
