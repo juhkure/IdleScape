@@ -1,7 +1,11 @@
-<title>Main Menu</title>
+{% extends 'base.html'%}
+{% block title %}
+Main menu
+{% endblock %}
 
+{% block content %}
 {% if session.username %}
-<h1> Main menu </h1>
+<h2> Main menu </h2>
 <p> You're logged in as {{ session.username }} </p>
 
 
@@ -46,3 +50,5 @@ Skill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience
 {% else %}
 <p> You're not logged in </p>
 {%  endif %}
+
+{% endblock %}

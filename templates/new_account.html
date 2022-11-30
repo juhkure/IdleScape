@@ -1,4 +1,10 @@
-<h1>Create new account</h1>
+{% extends 'base.html'%}
+{% block title %}
+Create account
+{% endblock %}
+
+{% block content %}
+<h2>Create new account</h2>
 
 <a href="/"><--Go back</a>
 
@@ -24,3 +30,5 @@
     <input type="password" name="password2"></p>
     <input type="submit" value="Create account">
 </form>
+
+{% endblock %}

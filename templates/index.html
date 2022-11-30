@@ -1,5 +1,12 @@
-<title>Frontpage</title>
-<h1> IdleScape </h1>
+{% extends 'base.html'%}
+{% block title %}
+Log in
+{% endblock %}
+
+{% block content %}
+
+
+
 <br>
 <h2> Log in here: </h2>
 <form action="/login" method="POST">
@@ -26,3 +33,5 @@
 
 <a href="/new_account">Create account--></a>
 
+
+{% endblock %}
