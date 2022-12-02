@@ -1,6 +1,4 @@
-
 h1 {
-    /* background-color: rgba(197, 96, 96, 0.363); */
     text-shadow: 2px 2px 5px rgb(145, 6, 6);
     font-size: 48px;
     margin-bottom: 0.3em;
@@ -9,31 +7,27 @@ h1 {
 }
 
 body {
-    color:rgb(30, 0, 75);
+    color: rgb(30, 0, 75);
     font-family: 'Share Tech Mono', 'courier new', Courier, monospace;
     font-size: large;
     font-weight: bold;
     font-variant: small-caps;
     background-image: url("images/background_tile_moss.png");
     background-size: 400px;
-
 }
 
 .box {
-    /* background-color: rgba(78, 78, 78, 0.816); */
     --offset-x: 1.5em;
     --offset-y: 2em;
 
-    background-image: url("images/background_tile.png");
+    background-image: url("images/background_tile_clean2.png");
     background-size: 400px;
-    /* background-position-x: calc(-1.55em + var(--offset-x));
-    background-position-y: calc(-5.9em + var(--offset-y)); */
     background-position-x: -3.5em;
     background-position-y: -5.9em;
-    max-width: 17.5em;
+    max-width: 20em;
 
     margin-left: 2em;
-    
+
     border-color: rgb(25, 30, 26);
 
     border-style: double;
@@ -49,4 +43,101 @@ body {
     padding-left: 1.5em;
     padding-bottom: 2em;
 
+}
+
+
+.stats {
+    display: block;
+    contain: content;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.skill {
+    border: 2em;
+    display: block;
+    width: 26%;
+    float: left;
+    height: 7em;
+    padding-bottom: 3em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+}
+
+.skill_name {
+    display: block;
+    text-align: right;
+    font-size: 22px;
+}
+
+.left_level, .left_experience {
+    text-align: left;
+}
+
+.right_level, .right_experience {
+    float: right;
+}
+
+.sprites {
+    background-image: url("images/skills_spritesheet.png");
+    background-repeat: no-repeat;
+    display: block;
+    border: 0.4em solid;
+    transform: scale(0.30);
+    margin-top: -6em;
+    margin-bottom: -6em;
+    margin-left: -6em;
+    margin-right: 9em;
+}
+
+.sprites:hover {
+    border: 5px solid rgb(239, 239, 239);
+}
+
+.sprites-agility {
+    width: 300px;
+    height: 300px;
+    background-position: -5px -5px;
+}
+
+.sprites-attack {
+    width: 300px;
+    height: 300px;
+    background-position: -315px -5px;
+}
+
+.sprites-defence {
+    width: 300px;
+    height: 300px;
+    background-position: -625px -5px;
+}
+
+.sprites-fishing {
+    width: 300px;
+    height: 300px;
+    background-position: -935px -5px;
+}
+
+.sprites-hitpoints {
+    width: 300px;
+    height: 300px;
+    background-position: -1245px -5px;
+}
+
+.sprites-prayer {
+    width: 300px;
+    height: 300px;
+    background-position: -1555px -5px;
+}
+
+.sprites-strength {
+    width: 300px;
+    height: 300px;
+    background-position: -1865px -5px;
+}
+
+.sprites-thieving {
+    width: 300px;
+    height: 300px;
+    background-position: -2175px -5px;
 }

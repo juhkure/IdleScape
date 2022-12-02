@@ -12,41 +12,81 @@ Main menu
 <form action="/set_activity" method="POST">
     <select name="activity" type="text">
         <option value="not selected" selected hidden>Select activity</option>
-        <option value="combat">Combat</option>
+        <option value="combat (accurate)">Combat-> Attack</option>
+        <option value="combat (aggressive)">Combat-> Strength</option>
+        <option value="combat (defensive)">Combat-> Defence</option>
         <option value="fishing">Fishing</option>
         <option value="parkour">Parkour</option>
         <option value="pray">Pray</option>
+        <option value="thieve">Thieve</option>
     </select>
     <input type="submit" value="Set activity!">
 </form>
 
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.0 == "error" %}
-                <p style="color:red"><strong> {{ message.1 }} </strong></p>
-            {% else %}
-                <p> Activity <strong> {{ message.1 }}</strong> succesfully activated!</p>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+{% if message.0 == "error" %}
+<p style="color:red"><strong> {{ message.1 }} </strong></p>
+{% else %}
+<p> Activity <strong> {{ message.1 }}</strong> succesfully activated!</p>
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endwith %}
-{% block body %}{% endblock %}
 
 {% if error %}
-    <p style="color:red"><strong>Error: {{error}}</strong></p>
+<p style="color:red"><strong>Error: {{error}}</strong></p>
 {% endif %}
 
 
-Skill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Experience       
-<hr>
-{% for skill in skills %}
-{{ skill.skill_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ skill.level }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ skill.experience }}
-<hr>
-{% endfor %}
+<div class="stats">
+    {% for skill in skills %}
+    <span class="skill">
+        {% if skill.skill_name == "attack" %}
+        <span class="sprites sprites-attack"></span>
+        {% endif %}
 
-<a href="/logout">Log out</a>
+        {% if skill.skill_name == "agility" %}
+        <span class="sprites sprites-agility"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "defence" %}
+        <span class="sprites sprites-defence"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "strength" %}
+        <span class="sprites sprites-strength"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "hitpoints" %}
+        <span class="sprites sprites-hitpoints"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "prayer" %}
+        <span class="sprites sprites-prayer"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "thieving" %}
+        <span class="sprites sprites-thieving"></span>
+        {% endif %}
+
+        {% if skill.skill_name == "fishing" %}
+        <span class="sprites sprites-fishing"></span>
+        {% endif %}
+
+        <span class="skill_name">
+            {{ skill.skill_name }}
+        </span>
+        <span class="left_level">Level:</span><span class="right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="right_experience">{{ skill.experience }}</span>
+        <!-- </div> -->
+    </span>
+
+    {% endfor %}
+</div>
+<a href="/logout"><--Log out</a>
 {% else %}
 <p> You're not logged in </p>
 {%  endif %}
