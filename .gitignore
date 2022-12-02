@@ -2,3 +2,4 @@
 venv
 __pycache__
 notes.txt
+templates/main_menu2.html
