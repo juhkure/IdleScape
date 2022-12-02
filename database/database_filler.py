@@ -20,8 +20,11 @@ def fill_database():
 def insert_activities():
     db.session.execute("INSERT INTO activities (name) VALUES ('fishing')")
     db.session.execute("INSERT INTO activities (name) VALUES ('parkour')")
-    db.session.execute("INSERT INTO activities (name) VALUES ('combat')")
+    db.session.execute("INSERT INTO activities (name) VALUES ('combat (accurate)')")
+    db.session.execute("INSERT INTO activities (name) VALUES ('combat (aggressive)')")
+    db.session.execute("INSERT INTO activities (name) VALUES ('combat (defensive)')")
     db.session.execute("INSERT INTO activities (name) VALUES ('pray')")
+    db.session.execute("INSERT INTO activities (name) VALUES ('thieve')")
 
 def insert_skills():
     db.session.execute("INSERT INTO skills (name) VALUES ('attack')")
@@ -29,13 +32,23 @@ def insert_skills():
     db.session.execute("INSERT INTO skills (name) VALUES ('fishing')")
     db.session.execute("INSERT INTO skills (name) VALUES ('agility')")
     db.session.execute("INSERT INTO skills (name) VALUES ('prayer')")
+    db.session.execute("INSERT INTO skills (name) VALUES ('defence')")
+    db.session.execute("INSERT INTO skills (name) VALUES ('strength')")
+    db.session.execute("INSERT INTO skills (name) VALUES ('thieve')")
+    
+    
 
 def insert_activity_skill():
-    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat', 'attack', 75)")
-    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat', 'hitpoints', 25)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (accurate)', 'attack', 75)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (accurate)', 'hitpoints', 25)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (aggressive)', 'strength', 75)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (aggressive)', 'hitpoints', 25)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (defensive)', 'defence', 75)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('combat (defensive)', 'hitpoints', 25)")
     db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('fishing', 'fishing', 100)")
     db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('parkour', 'agility', 100)")
     db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('pray', 'prayer', 100)")
+    db.session.execute("INSERT INTO activity_skill (activity_name, skill_name, base_xp) VALUES ('thieve', 'thieving', 100)")
 
 def empty_tables():
     answer = input("Empty tables?: (Y/n): ")
