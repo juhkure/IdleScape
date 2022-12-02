@@ -35,7 +35,7 @@ Things (hopefully) working currently are:
 
 # Plans
 
-The current plan is to do calculations and database logic within the backend server. Frontend will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 6 tables to track users, their skills, and their chosen activity.
+The current plan is to do calculations and database logic within the backend server. A small portion in "frontend" will be done with JavaScript to allow a more visual and smoother user experience. At it's core, the game's database consists of just 6 tables to track users, their skills, and their chosen activity.
 
 Further plans consist of things like unlocks/achievements and items that allows the player to further plan and customize their progression but their implementation is for now, out of reach.
 
