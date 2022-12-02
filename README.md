@@ -31,7 +31,7 @@ Things (hopefully) working currently are:
 
 ### Current Main menu visuals:
 
-[Main Menu](https://github.com/juhkure/IdleScape/blob/main/readme_images/main_menu.png)
+![Main Menu](https://github.com/juhkure/IdleScape/blob/main/readme_images/main_menu.png)
 
 # Plans
 
