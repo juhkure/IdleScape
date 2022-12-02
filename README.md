@@ -25,8 +25,13 @@ Things (hopefully) working currently are:
 * Accounts can be created and used to log in.
 * New account creates necessary rows in database for game logic. Password is hashed.
 * User can select an active activity for their account.
-* Selecting an activity rewards the account with experience with previously active activity.
+* Selecting an activity rewards the account with experience in previously active activity.
+* Main menu lists user's skills, levels, and experience.
 
+
+### Current Main menu visuals:
+
+[Main Menu](https://github.com/juhkure/IdleScape/blob/main/readme_images/main_menu.png)
 
 # Plans
 
