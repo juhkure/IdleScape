@@ -34,7 +34,7 @@ def insert_skills():
     db.session.execute("INSERT INTO skills (name) VALUES ('prayer')")
     db.session.execute("INSERT INTO skills (name) VALUES ('defence')")
     db.session.execute("INSERT INTO skills (name) VALUES ('strength')")
-    db.session.execute("INSERT INTO skills (name) VALUES ('thieve')")
+    db.session.execute("INSERT INTO skills (name) VALUES ('thieving')")
     
     
 
