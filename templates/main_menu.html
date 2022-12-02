@@ -44,6 +44,11 @@ Main menu
 <div class="stats">
     {% for skill in skills %}
     <span class="skill">
+
+        <span class="skill_name">
+            {{ skill.skill_name }}
+        </span>
+
         {% if skill.skill_name == "attack" %}
         <span class="sprites sprites-attack"></span>
         {% endif %}
@@ -76,9 +81,7 @@ Main menu
         <span class="sprites sprites-fishing"></span>
         {% endif %}
 
-        <span class="skill_name">
-            {{ skill.skill_name }}
-        </span>
+        
         <span class="left_level">Level:</span><span class="right_level">{{ skill.level }}</span>
         <span class="left_experience">Exp:</span><span class="right_experience">{{ skill.experience }}</span>
         <!-- </div> -->
