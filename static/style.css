@@ -1,9 +1,56 @@
 h1 {
-    text-shadow: 2px 2px 5px rgb(145, 6, 6);
-    font-size: 48px;
-    margin-bottom: 0.3em;
+    display: inline;
+    text-shadow: 2px 2px 11px rgb(232 0 255);
+    font-size: 3.5em;
     margin-left: 0.7em;
-    margin-top: 0.45em;
+}
+
+.wrapper {
+    min-width: 20em;
+    background-color: rgb(139 21 163 / 40%);
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+button {
+    background-color: rgba(166, 105, 207, 0.863);
+    border: none;
+    padding: 1.4em 1.4em;
+    display: inline-block;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-variant: inherit;
+
+    border-left-style: solid;
+    border-width: 0.0em;
+    border-color: #6b1e7a94;
+
+    transition-duration: 0.1s;
+
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+
+    left: -3em;
+    position: relative;
+    border-width: 1em;
+}
+
+.topnav {
+    display: flex;
+    float: right;
+}
+
+.about {
+    display: none;
 }
 
 body {
@@ -16,14 +63,21 @@ body {
     background-size: 400px;
 }
 
-.box {
-    --offset-x: 1.5em;
-    --offset-y: 2em;
+a:link {
+    font-size: 1.3em;
+    color: #ffcfec;
+}
 
+a:visited {
+    font-size: 1.3em;
+    color: #ffcfec;
+}
+
+.box {
     background-image: url("images/background_tile_clean2.png");
     background-size: 400px;
     background-position-x: -3.5em;
-    background-position-y: -5.9em;
+    background-position-y: -6.3em;
     max-width: 20em;
 
     margin-left: 2em;
@@ -42,6 +96,7 @@ body {
 
     padding-left: 1.5em;
     padding-bottom: 2em;
+    /* transition-duration: 1s; */
 
 }
 
@@ -71,11 +126,13 @@ body {
     font-size: 22px;
 }
 
-.left_level, .left_experience {
+.left_level,
+.left_experience {
     text-align: left;
 }
 
-.right_level, .right_experience {
+.right_level,
+.right_experience {
     float: right;
 }
 

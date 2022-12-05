@@ -1,17 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono">
-    <link rel="picture" type="img" href="{{ url_for('static', filename='images/sword_pixel.png')}}">
-</head>
-<body>
-    <h1> IdleScape </h1>
-    <div class="box">
-    {% block content %}
-    {% endblock %}
-    </div>
-</body>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %} {% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono">
+
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <h1>IdleScape</h1>
+            <div class="topnav">
+                <button class="button" onclick="showAboutDescription()">About</button>
+                <!-- <form action="/logout" method="post">
+                    <input type="submit" value="Logout">
+                </form> -->
+            </div>
+        </div>
+        <div class="box">
+            <div class="about">
+                <h2>About</h2>
+                <p>Runescape inspired Idle game</p>
+                <p>This is a school project. Check out the github page <a href="https://github.com/juhkure/IdleScape" target="_blank">here!</a></p>
+                <p>Current gamedesign only allows you to select an activity and check your progress</p>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <script>
+
+            const button = document.querySelector('button');
+            let isToggled = false;
+            button.onmousedown = function () {
+                button.style.marginRight = '0.5em';
+                button.style.borderWidth = '0.2em';
+                button.style.left = '-3.3em';
+            };
+
+            button.onmouseup = function () {
+                button.style.marginRight = '0.0em';
+            }
+
+            button.onmouseover = function () {
+                    button.style.backgroundColor = 'rgba(217, 160, 255, 0.774)';
+            };
+            button.onmouseleave = function () {
+                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+            };
+
+            button.addEventListener('click', () => {
+                isToggled = !isToggled;
+                if (isToggled) {
+                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+                    button.style.borderWidth = '0.5em';
+                    button.style.left= '-3.5em';
+                } else {
+                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+                    button.style.borderWidth = '1em';
+                    button.style.left = '-3em';
+                }
+            });
+
+            function showAboutDescription() {
+                if (document.querySelector('.about').style.display == 'block') {
+                    document.querySelector('.about').style.display = 'none'; // hide the about window
+
+                } else {
+                    document.querySelector('.about').style.display = 'block'; // show the about window
+                }
+            }
+        </script>
+    </body>
+
 </html>
