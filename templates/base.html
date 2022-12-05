@@ -33,32 +33,37 @@
         <script>
 
             const button = document.querySelector('button');
+            const hoverColor = 'rgba(217, 160, 255, 0.774)';
+            const normalColor = 'rgba(166, 105, 207, 0.863)';
+
             let isToggled = false;
             button.onmousedown = function () {
                 button.style.marginRight = '0.5em';
                 button.style.borderWidth = '0.2em';
                 button.style.left = '-3.3em';
+                button.style.backgroundColor = hoverColor;
             };
 
             button.onmouseup = function () {
                 button.style.marginRight = '0.0em';
+                button.style.backgroundColor = normalColor;
             }
 
             button.onmouseover = function () {
-                    button.style.backgroundColor = 'rgba(217, 160, 255, 0.774)';
+                    
             };
             button.onmouseleave = function () {
-                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+                    
             };
 
             button.addEventListener('click', () => {
                 isToggled = !isToggled;
                 if (isToggled) {
-                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+                    button.style.backgroundColor = normalColor;
                     button.style.borderWidth = '0.5em';
                     button.style.left= '-3.5em';
                 } else {
-                    button.style.backgroundColor = 'rgba(166, 105, 207, 0.863)';
+                    button.style.backgroundColor = normalColor;
                     button.style.borderWidth = '1em';
                     button.style.left = '-3em';
                 }
