@@ -40,7 +40,6 @@
             button.onmousedown = function () {
                 button.style.marginRight = '0.5em';
                 button.style.borderWidth = '0.2em';
-                button.style.left = '-3.3em';
                 button.style.backgroundColor = hoverColor;
             };
 
@@ -49,23 +48,14 @@
                 button.style.backgroundColor = normalColor;
             }
 
-            button.onmouseover = function () {
-                    
-            };
-            button.onmouseleave = function () {
-                    
-            };
-
             button.addEventListener('click', () => {
                 isToggled = !isToggled;
                 if (isToggled) {
                     button.style.backgroundColor = normalColor;
                     button.style.borderWidth = '0.5em';
-                    button.style.left= '-3.5em';
                 } else {
                     button.style.backgroundColor = normalColor;
                     button.style.borderWidth = '1em';
-                    button.style.left = '-3em';
                 }
             });
 

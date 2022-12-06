@@ -39,8 +39,10 @@ button {
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
 
-    left: -3em;
-    position: relative;
+    left: 26.5em;
+    position: absolute;
+    /* left: -3em; */
+    /* position: relative; */
     border-width: 1em;
 }
 
