@@ -53,43 +53,43 @@ Main menu
 
         {% if skill.skill_name == "attack" %}
         <!-- <span class="sprites sprites-attack" onmouseenter="showThis(document.getElementsByClassName('skill_name'), arguments[0])"></span> -->
-        <span class="sprites sprites-attack" onmouseover="showSkillInfo('attack')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-attack" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('attack')"></span>
         {% endif %}
 
         {% if skill.skill_name == "agility" %}
-        <span class="sprites sprites-agility" onmouseover="showSkillInfo('agility')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-agility" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('agility')"></span>
         {% endif %}
 
         {% if skill.skill_name == "defence" %}
-        <span class="sprites sprites-defence" onmouseover="showSkillInfo('defence')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-defence" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('defence')"></span>
         {% endif %}
 
         {% if skill.skill_name == "strength" %}
-        <span class="sprites sprites-strength" onmouseover="showSkillInfo('strength')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-strength" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('strength')"></span>
         {% endif %}
 
         {% if skill.skill_name == "hitpoints" %}
-        <span class="sprites sprites-hitpoints" onmouseover="showSkillInfo('hitpoints')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-hitpoints" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('hitpoints')"></span>
         {% endif %}
 
         {% if skill.skill_name == "prayer" %}
-        <span class="sprites sprites-prayer" onmouseover="showSkillInfo('prayer')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-prayer" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('prayer')"></span>
         {% endif %}
 
         {% if skill.skill_name == "thieving" %}
-        <span class="sprites sprites-thieving" onmouseover="showSkillInfo('thieving')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-thieving" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('thieving')"></span>
         {% endif %}
 
         {% if skill.skill_name == "fishing" %}
-        <span class="sprites sprites-fishing" onmouseover="showSkillInfo('fishing')"
-            onmouseleave="hideSkillInfo()"></span>
+        <span class="sprites sprites-fishing" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
+            onclick="showSkillInfo('fishing')"></span>
         {% endif %}
 
 
@@ -108,9 +108,19 @@ Main menu
 
         <script>
             const skillInfo = document.querySelector('.skillInfo');
+            let isSkillInfo = false;
 
-            function hideSkillInfo() {
-                skillInfo.style.visibility = 'hidden';
+            function showSkillInfoPopup() {
+                if (!isSkillInfo) {
+                    skillInfo.innerHTML = "<p>Click to show more info</p>";
+                    skillInfo.style.visibility = 'visible';
+                }
+            }
+
+            function hideSkillInfoPopup() {
+                if (!isSkillInfo) {
+                    skillInfo.style.visibility = 'hidden';
+                }
             }
 
             function showSkillInfo(skillName) {
@@ -126,12 +136,13 @@ Main menu
                         let currentLevel = data.currentLevel;
                         let totalExperience = data.totalExperience;
                         let experienceRate = data.experienceRate;
-                        skillInfo.innerHTML ="<p>" + skillName + "</p>" + 
-                        "<p>Current level: " + currentLevel + "</p>" + 
-                        "<p>Total experience: " + totalExperience + "</p>" +
-                        "<p>Current experience rate: " + experienceRate + " xp" +
-                        "<p>for every 100 seconds.</p>";
+                        skillInfo.innerHTML = "<p>" + skillName + "</p>" +
+                            "<p>Current level: " + currentLevel + "</p>" +
+                            "<p>Total experience: " + totalExperience + "</p>" +
+                            "<p>Current experience rate: " + experienceRate + " xp" +
+                            "<p>for every 100 seconds.</p>";
                         skillInfo.style.visibility = 'visible';
+                        isSkillInfo = true;
                     })
                     .catch(error => {
                         console.error('Error:', error);
