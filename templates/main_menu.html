@@ -108,17 +108,20 @@ Main menu
 
         <script>
             const skillInfo = document.querySelector('.skillInfo');
+            const box = document.querySelector('.box');
             let isSkillInfo = false;
 
             function showSkillInfoPopup() {
                 if (!isSkillInfo) {
-                    skillInfo.innerHTML = "<p>Click to show more info</p>";
+                    box.style.borderTopRightRadius = '0em';
+                    skillInfo.innerHTML = "<p>click the skill image</p><p>to show more info</p>";
                     skillInfo.style.visibility = 'visible';
                 }
             }
 
             function hideSkillInfoPopup() {
                 if (!isSkillInfo) {
+                    box.style.borderTopRightRadius = '3em';
                     skillInfo.style.visibility = 'hidden';
                 }
             }

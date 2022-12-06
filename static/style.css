@@ -90,35 +90,58 @@ a:visited {
     border-left-style: solid;
     border-width: 1em;
 
-    border-top-right-radius: 2em;
-    border-bottom-right-radius: 2em;
+    border-top-right-radius: 3em;
+    border-bottom-right-radius: 3em;
 
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 
     padding-left: 1.5em;
     padding-bottom: 2em;
-    /* transition-duration: 1s; */
+    transition-duration: 0.05s;
 
 }
 
 .skillInfo {
-    visibility: hidden;
+    /* visibility: hidden;
     border: solid;
     position: absolute;
     background-image: inherit;
     background-size: inherit;
     background-position-x: -5em;
     background-position-y: inherit;
-
-    /* left: 26em;
-    bottom: 44em; */
     left: 26.5em;
     top: 5.5em;
     border: inherit;
     border-radius: inherit;
     padding-right: 1em;
-    padding-left: 1em;
+    padding-left: 1em; */
+
+    visibility: hidden;
+    border: solid;
+    position: absolute;
+    background-image: inherit;
+    background-size: inherit;
+    background-position-x: 18em;
+    background-position-y: inherit;
+    left: 25.59em;
+    top: 5.46em;
+    border-left: double;
+    border-left-width: inherit;
+    border-left-color: inherit;
+    border-top-right-radius: 3em;
+    /* border: inherit; */
+    border-top: inherit;
+    border-right: inherit;
+    border-bottom: inherit;
+    border-radius: inherit;
+    border-bottom-right-radius: inherit;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-bottom: 1.5em;
+
+
+
 }
 
 
