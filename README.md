@@ -27,7 +27,7 @@ Things (hopefully) working currently are:
 * User can select an active activity for their account.
 * Selecting an activity rewards the account with experience in previously active activity.
 * Main menu lists user's skills, levels, and experience.
-
+* User can click a skill's image to show more info about it
 
 ### Current Main menu visuals:
 
