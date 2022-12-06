@@ -63,6 +63,27 @@ def set_activity(activity):
     db.session.execute(sql, {"active":True, "current_time":datetime.now(), "user_id":user_id, "activity":activity})
     db.session.commit()
 
+def get_activity():
+    user_id = session["user_id"]
+    
+    sql = "SELECT activity_name FROM user_activity WHERE user_id=:user_id AND active"
+    result = db.session.execute(sql, {"user_id":user_id})
+    user_activity = result.fetchone()
+
+    if user_activity is not None:
+        activity = user_activity.activity_name
+    else:
+        activity = None
+
+    return activity
+
+def get_active_skills(activity):
+    sql = "SELECT skill_name FROM activity_skill WHERE activity_name=:activity"
+    result = db.session.execute(sql, {"activity":activity})
+    skills = result.fetchall()
+
+    return skills
+
 # Rewards user with accumulated experience if active activity found
 def reward_activity():
     user_id = session["user_id"]
@@ -115,6 +136,44 @@ def reward_activity():
         return True # Active activity found and xp was rewarded
     else:
         return False # No active activity
+
+def get_skill_info(skill_name):
+    experience_rate = 0
+    total_experience = 0
+    user_id = session["user_id"]
+
+    sql = "SELECT level, experience FROM user_skills WHERE user_id=:user_id AND skill_name=:name"
+    result = db.session.execute(sql, {"user_id":user_id, "name":skill_name})
+    level_and_xp = result.fetchone()
+    current_level = level_and_xp[0]
+    total_experience = level_and_xp[1]
+
+    activity = get_activity()
+
+    if activity is not None:
+        active_skills = get_active_skills(activity)
+        for active_skill in active_skills:
+            active_skill_name = active_skill.skill_name
+            # print(active_skill.skill_name)
+            # print(skill_name)
+            if active_skill_name == skill_name:
+                base_experience_rate = get_base_experience_rate(active_skill_name, activity)
+                experience_rate = calculate_experience_rate(base_experience_rate, current_level)
+
+
+
+    
+
+    return current_level, total_experience, experience_rate
+
+def get_base_experience_rate(skill, activity):
+    sql = "SELECT base_xp FROM activity_skill WHERE activity_name=:activity AND skill_name=:skill"
+    result = db.session.execute(sql, {"activity":activity, "skill":skill})
+
+    return result.fetchone()[0]
+
+def calculate_experience_rate(base_xp, level):
+    return base_xp + base_xp * 0.1 * (level -1)
 
 def get_account_skills():
     user_id = session["user_id"]

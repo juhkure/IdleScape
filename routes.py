@@ -1,6 +1,6 @@
 from app import app
 import account
-from flask import render_template, request, session, redirect, flash, url_for
+from flask import render_template, jsonify, request, session, redirect, flash, url_for
 
 
 
@@ -14,6 +14,17 @@ def main_menu():
     skills = account_skills.fetchall()
 
     return render_template("main_menu.html", skills=skills)
+
+@app.route("/skill_info", methods=["POST"])
+def experience_rate():
+    skill_name = request.json['name']
+    info = account.get_skill_info(skill_name)
+
+    current_level = info[0]
+    total_experience = info[1]
+    experience_rate = info[2]
+
+    return jsonify({'currentLevel':current_level, 'totalExperience':total_experience, 'experienceRate':experience_rate})
 
 @app.route("/login", methods=["POST"])
 def login():

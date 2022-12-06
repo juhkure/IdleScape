@@ -40,6 +40,8 @@ Main menu
 <p style="color:red"><strong>Error: {{error}}</strong></p>
 {% endif %}
 
+<span class="skillInfo">
+</span>
 
 <div class="stats">
     {% for skill in skills %}
@@ -50,38 +52,47 @@ Main menu
         </span>
 
         {% if skill.skill_name == "attack" %}
-        <span class="sprites sprites-attack"></span>
+        <!-- <span class="sprites sprites-attack" onmouseenter="showThis(document.getElementsByClassName('skill_name'), arguments[0])"></span> -->
+        <span class="sprites sprites-attack" onmouseover="showSkillInfo('attack')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "agility" %}
-        <span class="sprites sprites-agility"></span>
+        <span class="sprites sprites-agility" onmouseover="showSkillInfo('agility')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "defence" %}
-        <span class="sprites sprites-defence"></span>
+        <span class="sprites sprites-defence" onmouseover="showSkillInfo('defence')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "strength" %}
-        <span class="sprites sprites-strength"></span>
+        <span class="sprites sprites-strength" onmouseover="showSkillInfo('strength')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "hitpoints" %}
-        <span class="sprites sprites-hitpoints"></span>
+        <span class="sprites sprites-hitpoints" onmouseover="showSkillInfo('hitpoints')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "prayer" %}
-        <span class="sprites sprites-prayer"></span>
+        <span class="sprites sprites-prayer" onmouseover="showSkillInfo('prayer')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "thieving" %}
-        <span class="sprites sprites-thieving"></span>
+        <span class="sprites sprites-thieving" onmouseover="showSkillInfo('thieving')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
         {% if skill.skill_name == "fishing" %}
-        <span class="sprites sprites-fishing"></span>
+        <span class="sprites sprites-fishing" onmouseover="showSkillInfo('fishing')"
+            onmouseleave="hideSkillInfo()"></span>
         {% endif %}
 
-        
+
         <span class="left_level">Level:</span><span class="right_level">{{ skill.level }}</span>
         <span class="left_experience">Exp:</span><span class="right_experience">{{ skill.experience }}</span>
         <!-- </div> -->
@@ -89,9 +100,43 @@ Main menu
 
     {% endfor %}
 </div>
-<a href="/logout"><--Log out</a>
-{% else %}
-<p> You're not logged in </p>
-{%  endif %}
+<a href="/logout">
+    <--Log out</a>
+        {% else %}
+        <p> You're not logged in </p>
+        {%  endif %}
 
-{% endblock %}
+        <script>
+            const skillInfo = document.querySelector('.skillInfo');
+
+            function hideSkillInfo() {
+                skillInfo.style.visibility = 'hidden';
+            }
+
+            function showSkillInfo(skillName) {
+                fetch('/skill_info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: skillName })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        let currentLevel = data.currentLevel;
+                        let totalExperience = data.totalExperience;
+                        let experienceRate = data.experienceRate;
+                        skillInfo.innerHTML ="<p>" + skillName + "</p>" + 
+                        "<p>Current level: " + currentLevel + "</p>" + 
+                        "<p>Total experience: " + totalExperience + "</p>" +
+                        "<p>Current experience rate: " + experienceRate + " xp" +
+                        "<p>for every 100 seconds.</p>";
+                        skillInfo.style.visibility = 'visible';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+
+        {% endblock %}
