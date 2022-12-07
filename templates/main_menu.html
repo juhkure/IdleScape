@@ -56,56 +56,64 @@ Main menu
         <span class="sprites sprites-attack" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('attack')"></span>
         <span class="left_level">Level:</span><span class="attack_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="attack_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="attack_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "agility" %}
         <span class="sprites sprites-agility" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('agility')"></span>
         <span class="left_level">Level:</span><span class="agility_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="agility_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="agility_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "defence" %}
         <span class="sprites sprites-defence" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('defence')"></span>
         <span class="left_level">Level:</span><span class="defence_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="defence_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="defence_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "strength" %}
         <span class="sprites sprites-strength" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('strength')"></span>
         <span class="left_level">Level:</span><span class="strength_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="strength_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="strength_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "hitpoints" %}
         <span class="sprites sprites-hitpoints" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('hitpoints')"></span>
         <span class="left_level">Level:</span><span class="hitpoints_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="hitpoints_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="hitpoints_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "prayer" %}
         <span class="sprites sprites-prayer" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('prayer')"></span>
         <span class="left_level">Level:</span><span class="prayer_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="prayer_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="prayer_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "thieving" %}
         <span class="sprites sprites-thieving" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('thieving')"></span>
         <span class="left_level">Level:</span><span class="thieving_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="thieving_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="thieving_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "fishing" %}
         <span class="sprites sprites-fishing" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('fishing')"></span>
         <span class="left_level">Level:</span><span class="fishing_level right_level">{{ skill.level }}</span>
-        <span class="left_experience">experience left:</span><span class="fishing_experience right_experience">{{ skill.experience_left }}</span>
+        <span class="left_experience">experience left:</span><span
+            class="fishing_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
 
@@ -125,11 +133,13 @@ Main menu
             const skillInfo = document.querySelector('.skillInfo');
             const box = document.querySelector('.box');
             let isSkillInfo = false;
+            let timer = Date.now();
 
             function showSkillInfoPopup() {
                 if (!isSkillInfo) {
                     box.style.borderTopRightRadius = '0em';
-                    skillInfo.innerHTML = "<h2>Click to show more info<h2>";
+                    skillInfo.innerHTML = "<h2>Click to show more info<h2>" +
+                        "<p id='popup'>(note: spam clicking doesn't give exp)</p>";
                     skillInfo.style.visibility = 'visible';
                 }
             }
@@ -142,40 +152,49 @@ Main menu
             }
 
             function showSkillInfo(skillName) {
-                fetch('/skill_info', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name: skillName })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const rightLevel = document.querySelector('.' + skillName + '_level');
-                        console.log(rightLevel.innerHTML);
-
-                        const rightExperience = document.querySelector('.' + skillName + '_experience');
-                        console.log(rightExperience.innerHTML);
-
-                        let currentLevel = data.currentLevel;
-                        let totalExperience = data.totalExperience;
-                        let experienceRate = data.experienceRate;
-                        let experienceLeft = data.experienceLeft;
-                        rightLevel.innerHTML = currentLevel;
-                        rightExperience.innerHTML = experienceLeft;
-
-                        skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
-                            "<p>Current level: " + currentLevel + "</p>" +
-                            "<p>Experience left for next level: " + experienceLeft + "</p>" +
-                            "<p>Total experience: " + totalExperience + "</p>" +
-                            "<p>Current experience rate: " + experienceRate + " xp" +
-                            "<p>for every 100 seconds.</p>";
-                        skillInfo.style.visibility = 'visible';
-                        isSkillInfo = true;
+                let latestClick = Date.now();
+                if ((latestClick - timer) < 250) {
+                    console.log("Calm down!");
+                    timer = Date.now();
+                } else {
+                    console.log(timer);
+                    timer = Date.now();
+                    fetch('/skill_info', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: skillName })
                     })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            const rightLevel = document.querySelector('.' + skillName + '_level');
+                            console.log(rightLevel.innerHTML);
+
+                            const rightExperience = document.querySelector('.' + skillName + '_experience');
+                            console.log(rightExperience.innerHTML);
+
+                            let currentLevel = data.currentLevel;
+                            let totalExperience = data.totalExperience;
+                            let experienceRate = data.experienceRate;
+                            let experienceLeft = data.experienceLeft;
+                            rightLevel.innerHTML = currentLevel;
+                            rightExperience.innerHTML = experienceLeft;
+
+                            skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
+                                "<p>Current level: " + currentLevel + "</p>" +
+                                "<p>Experience left for next level: " + experienceLeft + "</p>" +
+                                "<p>Total experience: " + totalExperience + "</p>" +
+                                "<p>Current experience rate: " + experienceRate + " xp" +
+                                "<p>for every 100 seconds.</p>";
+                            skillInfo.style.visibility = 'visible';
+                            isSkillInfo = true;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+
             }
         </script>
 

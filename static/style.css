@@ -102,6 +102,10 @@ a:visited {
 
 }
 
+#popup {
+    font-size: 0.75em;
+}
+
 .skillInfo {
     /* visibility: hidden;
     border: solid;
@@ -138,10 +142,8 @@ a:visited {
     border-bottom-right-radius: inherit;
     padding-right: 2em;
     padding-left: 2em;
-
-
-
 }
+
 
 
 .stats {
