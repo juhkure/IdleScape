@@ -58,16 +58,15 @@ def create(username, password1, password2):
 
 def set_activity(activity):
     user_id = session["user_id"]
+    current_activity = reward_activity()
 
-    if not reward_activity():  # No currently active activity found
-        print("No experience rewarded this time yet...")
-    else:
+    if current_activity == activity:
         print("Experience rewarded!")
-
-    sql = "UPDATE user_activity SET active=:active, action_at=:current_time WHERE user_id=:user_id AND activity_name=:activity"
-    db.session.execute(sql, {"active": True, "current_time": datetime.now(
-    ), "user_id": user_id, "activity": activity})
-    db.session.commit()
+    else:  # No currently active activity found
+        sql = "UPDATE user_activity SET active=:active, action_at=:current_time WHERE user_id=:user_id AND activity_name=:activity"
+        db.session.execute(sql, {"active": True, "current_time": datetime.now(
+        ), "user_id": user_id, "activity": activity})
+        db.session.commit()
 
 
 def get_activity():
@@ -139,20 +138,21 @@ def reward_activity():
 
                 xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp, level=:new_level, experience_left=:remaining_xp WHERE user_id=:user_id AND skill_name=:skill"
                 db.session.execute(xp_insert_sql, {
-                    "gained_xp": gained_xp, "new_level": new_level, "remaining_xp":remaining_xp, "user_id":user_id, "skill":activity_skill.skill_name})
+                    "gained_xp": gained_xp, "new_level": new_level, "remaining_xp": remaining_xp, "user_id": user_id, "skill": activity_skill.skill_name})
             else:
                 xp_update_sql = "UPDATE user_skills SET experience = experience + :gained_xp, experience_left = experience_left - :gained_xp2 WHERE user_id=:user_id AND skill_name=:skill"
-                db.session.execute(xp_update_sql, {"gained_xp":gained_xp, "gained_xp2":gained_xp, "user_id":user_id, "skill":activity_skill.skill_name})
+                db.session.execute(xp_update_sql, {
+                                   "gained_xp": gained_xp, "gained_xp2": gained_xp, "user_id": user_id, "skill": activity_skill.skill_name})
             db.session.commit()
 
-        # Set user_activity back to False
-        update_user_activity = "UPDATE user_activity SET active = False WHERE user_id=:user_id AND activity_name=:activity"
-        db.session.execute(update_user_activity, {
-                           "user_id": user_id, "activity": user_activity.activity_name})
+        sql = "UPDATE user_activity SET action_at=:current_time WHERE user_id=:user_id AND activity_name=:activity"
+        db.session.execute(sql, {"current_time": datetime.now(
+        ), "user_id": user_id, "activity": user_activity.activity_name})
         db.session.commit()
-        return True  # Active activity found and xp was rewarded
+
+        return user_activity.activity_name  # Active activity found and xp was rewarded
     else:
-        return False  # No active activity
+        return None  # No active activity
 
 
 def get_skill_info(skill_name):
@@ -178,6 +178,7 @@ def get_skill_info(skill_name):
             # print(active_skill.skill_name)
             # print(skill_name)
             if active_skill_name == skill_name:
+                reward_activity()
                 base_experience_rate = get_base_experience_rate(
                     active_skill_name, activity)
                 experience_rate = calculate_experience_rate(
