@@ -37,10 +37,10 @@ def create(username, password1, password2):
         skills = result.fetchall()
         for skill in skills:
             sql = "INSERT INTO user_skills "\
-                  "(user_id, skill_name, level, experience) "\
-                  "VALUES (:user_id, :skill_name, :level, :experience)"
+                  "(user_id, skill_name, level, experience, experience_left) "\
+                  "VALUES (:user_id, :skill_name, :level, :experience, :experience_left)"
             db.session.execute(sql, {"user_id": user_id, "skill_name": skill[0], "level": int(
-                1), "experience": int(1)})
+                1), "experience": int(0), "experience_left": int(83)})
             db.session.commit()
 
         # Add activities for user
@@ -112,36 +112,37 @@ def reward_activity():
 
         # Calculate experience earned for all skills, then insert it to user_skills
         for activity_skill in activity_skills:
-            current_xp_sql = "SELECT experience, level FROM user_skills WHERE user_id=:user_id AND skill_name=:name"
+            current_xp_sql = "SELECT experience, level, experience_left FROM user_skills WHERE user_id=:user_id AND skill_name=:name"
             result = db.session.execute(
                 current_xp_sql, {"user_id": user_id, "name": activity_skill.skill_name})
 
-            xp_and_level = result.fetchone()
-            current_xp = xp_and_level[0]
-            current_level = xp_and_level[1]
+            result = result.fetchone()
+            current_xp = result[0]
+            current_level = result[1]
+            remaining_xp = result[2]
 
             # Experience calculation, determines speed of progression
             gained_xp = (passed_time_in_seconds / 100) * (activity_skill.base_xp +
                                                           activity_skill.base_xp * 0.1 * (current_level - 1))
 
-            new_xp = current_xp + gained_xp
-            # Calculate new level based on new_xp
-            new_level = 0
-            required_xp = 0
-            for i in range(1, 99):
-                required_xp += math.floor(i + 300 * pow(2, i/7))
-                if new_xp < (math.floor(required_xp/4)):
-                    new_level = i
-                    break
+            if gained_xp >= remaining_xp:
+                new_xp = current_xp + gained_xp
+                # Calculate new level based on new_xp
+                new_level = 0
+                required_xp = 0
+                for i in range(1, 99):
+                    required_xp += math.floor(i + 300 * pow(2, i/7))
+                    if new_xp < (math.floor(required_xp/4)):
+                        new_level = i
+                        remaining_xp = math.floor(required_xp)/4 - new_xp
+                        break
 
-            if (new_level > current_level):
-                xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp, level=:new_level WHERE user_id=:user_id AND skill_name=:skill"
+                xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp, level=:new_level, experience_left=:remaining_xp WHERE user_id=:user_id AND skill_name=:skill"
                 db.session.execute(xp_insert_sql, {
-                                   "gained_xp": gained_xp, "new_level": new_level, "user_id": user_id, "skill": activity_skill.skill_name})
+                    "gained_xp": gained_xp, "new_level": new_level, "remaining_xp":remaining_xp, "user_id":user_id, "skill":activity_skill.skill_name})
             else:
-                xp_insert_sql = "UPDATE user_skills SET experience = experience + :gained_xp WHERE user_id=:user_id AND skill_name=:skill"
-                db.session.execute(xp_insert_sql, {
-                                   "gained_xp": gained_xp, "user_id": user_id, "skill": activity_skill.skill_name})
+                xp_update_sql = "UPDATE user_skills SET experience = experience + :gained_xp, experience_left = experience_left - :gained_xp2 WHERE user_id=:user_id AND skill_name=:skill"
+                db.session.execute(xp_update_sql, {"gained_xp":gained_xp, "gained_xp2":gained_xp, "user_id":user_id, "skill":activity_skill.skill_name})
             db.session.commit()
 
         # Set user_activity back to False
@@ -165,7 +166,8 @@ def get_skill_info(skill_name):
     level_and_xp = result.fetchone()
     current_level = level_and_xp[0]
     total_experience = level_and_xp[1]
-    experience_till_next_level = experience_remaining(current_level, total_experience)
+    experience_till_next_level = experience_remaining(
+        current_level, total_experience)
 
     activity = get_activity()
 
@@ -184,6 +186,8 @@ def get_skill_info(skill_name):
     return current_level, total_experience, experience_rate, experience_till_next_level
 
 # Returns xp requirements for level and level+1
+
+
 def current_and_next_level_experience(level):
     required_xp = 0
     i = 1
@@ -194,6 +198,8 @@ def current_and_next_level_experience(level):
     return math.floor(current_xp/4), math.floor(required_xp/4)
 
 # Returns remaining xp for next level. True if next level achieved.
+
+
 def experience_remaining(level, current_experience):
     next_level_experience = current_and_next_level_experience(level)[1]
     if current_experience < next_level_experience:
@@ -215,12 +221,15 @@ def calculate_experience_rate(base_xp, level):
 
 def get_account_skills():
     user_id = session["user_id"]
-    sql = "SELECT skill_name, level, experience FROM user_skills WHERE user_id=:user_id ORDER BY skill_name"
+    sql = "SELECT skill_name, level, experience_left FROM user_skills WHERE user_id=:user_id ORDER BY skill_name"
     result = db.session.execute(sql, {"user_id": user_id})
+    skills = result.fetchall()
 
-    return result
+    return skills
 
 # Succesful login returns 2
+
+
 def login(username, password):
     sql = "SELECT id, password FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username": username})

@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS user_skills (
     user_id INTEGER REFERENCES users,
     skill_name TEXT REFERENCES skills,
     level INTEGER,
-    experience INTEGER
+    experience INTEGER,
+    experience_left INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS activities (

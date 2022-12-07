@@ -10,8 +10,7 @@ def index():
 
 @app.route("/main_menu")
 def main_menu():
-    account_skills = account.get_account_skills()
-    skills = account_skills.fetchall()
+    skills = account.get_account_skills()
 
     return render_template("main_menu.html", skills=skills)
 
