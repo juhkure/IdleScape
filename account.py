@@ -5,8 +5,6 @@ from datetime import datetime
 import math
 
 # Successful account creation returns 5
-
-
 def create(username, password1, password2):
     sql = "SELECT name FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username": username})
@@ -92,8 +90,6 @@ def get_active_skills(activity):
     return skills
 
 # Rewards user with accumulated experience if active activity found
-
-
 def reward_activity():
     user_id = session["user_id"]
     now = datetime.now()
@@ -187,8 +183,6 @@ def get_skill_info(skill_name):
     return current_level, total_experience, experience_rate, experience_till_next_level
 
 # Returns xp requirements for level and level+1
-
-
 def current_and_next_level_experience(level):
     required_xp = 0
     i = 1
@@ -199,8 +193,6 @@ def current_and_next_level_experience(level):
     return math.floor(current_xp/4), math.floor(required_xp/4)
 
 # Returns remaining xp for next level. True if next level achieved.
-
-
 def experience_remaining(level, current_experience):
     next_level_experience = current_and_next_level_experience(level)[1]
     if current_experience < next_level_experience:
@@ -229,8 +221,6 @@ def get_account_skills():
     return skills
 
 # Succesful login returns 2
-
-
 def login(username, password):
     sql = "SELECT id, password FROM users WHERE name=:username"
     result = db.session.execute(sql, {"username": username})

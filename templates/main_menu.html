@@ -55,46 +55,61 @@ Main menu
         <!-- <span class="sprites sprites-attack" onmouseenter="showThis(document.getElementsByClassName('skill_name'), arguments[0])"></span> -->
         <span class="sprites sprites-attack" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('attack')"></span>
+        <span class="left_level">Level:</span><span class="attack_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="attack_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "agility" %}
         <span class="sprites sprites-agility" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('agility')"></span>
+        <span class="left_level">Level:</span><span class="agility_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="agility_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "defence" %}
         <span class="sprites sprites-defence" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('defence')"></span>
+        <span class="left_level">Level:</span><span class="defence_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="defence_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "strength" %}
         <span class="sprites sprites-strength" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('strength')"></span>
+        <span class="left_level">Level:</span><span class="strength_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="strength_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "hitpoints" %}
         <span class="sprites sprites-hitpoints" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('hitpoints')"></span>
+        <span class="left_level">Level:</span><span class="hitpoints_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="hitpoints_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "prayer" %}
         <span class="sprites sprites-prayer" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('prayer')"></span>
+        <span class="left_level">Level:</span><span class="prayer_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="prayer_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "thieving" %}
         <span class="sprites sprites-thieving" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('thieving')"></span>
+        <span class="left_level">Level:</span><span class="thieving_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="thieving_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
         {% if skill.skill_name == "fishing" %}
         <span class="sprites sprites-fishing" onmouseover="showSkillInfoPopup()" onmouseleave="hideSkillInfoPopup()"
             onclick="showSkillInfo('fishing')"></span>
+        <span class="left_level">Level:</span><span class="fishing_level right_level">{{ skill.level }}</span>
+        <span class="left_experience">Exp:</span><span class="fishing_experience right_experience">{{ skill.experience_left }}</span>
         {% endif %}
 
 
-        <span class="left_level">Level:</span><span class="right_level">{{ skill.level }}</span>
-        <span class="left_experience">Exp:</span><span class="right_experience">{{ skill.experience_left }}</span>
+
         <!-- </div> -->
     </span>
 
@@ -136,10 +151,19 @@ Main menu
                 })
                     .then(response => response.json())
                     .then(data => {
+                        const rightLevel = document.querySelector('.' + skillName + '_level');
+                        console.log(rightLevel.innerHTML);
+
+                        const rightExperience = document.querySelector('.' + skillName + '_experience');
+                        console.log(rightExperience.innerHTML);
+
                         let currentLevel = data.currentLevel;
                         let totalExperience = data.totalExperience;
                         let experienceRate = data.experienceRate;
                         let experienceLeft = data.experienceLeft;
+                        rightLevel.innerHTML = currentLevel;
+                        rightExperience.innerHTML = experienceLeft;
+
                         skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
                             "<p>Current level: " + currentLevel + "</p>" +
                             "<p>Experience left for next level: " + experienceLeft + "</p>" +
