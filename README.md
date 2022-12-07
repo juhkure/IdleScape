@@ -17,7 +17,7 @@ The player can choose an activity to log their participation in from a list of d
 
 Player's skills are considered their "stats", and each of these stats/skills start from level 1 and can be levelled up all the way to 99. Each new level will require more experience than the previous one.
 
-## Features
+## Features (production may lag behind a few features)
 
 Things (hopefully) working currently are:
 * Ability to create a user and a database to PostgreSQL
@@ -30,6 +30,7 @@ Things (hopefully) working currently are:
 * Selecting an activity rewards the account with experience in previously active activity.
 * Main menu lists user's skills, levels, and experience.
 * User can click a skill's image to show more info about it
+* Clicking a skill's image updates said skill's stats
 
 ### Current Main menu visuals:
 
