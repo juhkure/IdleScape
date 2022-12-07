@@ -94,7 +94,7 @@ Main menu
 
 
         <span class="left_level">Level:</span><span class="right_level">{{ skill.level }}</span>
-        <span class="left_experience">Exp:</span><span class="right_experience">{{ skill.experience }}</span>
+        <span class="left_experience">Exp left:</span><span class="right_experience">{{ skill.experience }}</span>
         <!-- </div> -->
     </span>
 
@@ -139,8 +139,10 @@ Main menu
                         let currentLevel = data.currentLevel;
                         let totalExperience = data.totalExperience;
                         let experienceRate = data.experienceRate;
+                        let experienceLeft = data.experienceLeft;
                         skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
                             "<p>Current level: " + currentLevel + "</p>" +
+                            "<p>Experience left for next level: " + experienceLeft + "</p>" +
                             "<p>Total experience: " + totalExperience + "</p>" +
                             "<p>Current experience rate: " + experienceRate + " xp" +
                             "<p>for every 100 seconds.</p>";

@@ -15,6 +15,7 @@ def main_menu():
 
     return render_template("main_menu.html", skills=skills)
 
+# Also updates the progress to the skill
 @app.route("/skill_info", methods=["POST"])
 def experience_rate():
     skill_name = request.json['name']
@@ -23,8 +24,9 @@ def experience_rate():
     current_level = info[0]
     total_experience = info[1]
     experience_rate = info[2]
+    experience_left = info[3]
 
-    return jsonify({'currentLevel':current_level, 'totalExperience':total_experience, 'experienceRate':experience_rate})
+    return jsonify({'currentLevel':current_level, 'totalExperience':total_experience, 'experienceRate':experience_rate, 'experienceLeft':experience_left})
 
 @app.route("/login", methods=["POST"])
 def login():
