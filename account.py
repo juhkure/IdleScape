@@ -60,10 +60,15 @@ def set_activity(activity):
 
     if current_activity == activity:
         print("Experience rewarded!")
-    else:  # No currently active activity found
+    elif current_activity is None:  # No currently active activity found
         sql = "UPDATE user_activity SET active=:active, action_at=:current_time WHERE user_id=:user_id AND activity_name=:activity"
         db.session.execute(sql, {"active": True, "current_time": datetime.now(
         ), "user_id": user_id, "activity": activity})
+        db.session.commit()
+    else: # Current activity wasn't the same as chosen with set_activity()
+        sql = "UPDATE user_activity SET active=:active WHERE user_id=:user_id AND activity_name=:activity"
+        db.session.execute(sql, {"active":False, "user_id":user_id, "activity":current_activity})
+        db.session.execute(sql, {"active":True, "user_id":user_id, "activity":activity})
         db.session.commit()
 
 
@@ -152,6 +157,8 @@ def reward_activity():
 
 
 def get_skill_info(skill_name):
+    reward_activity()
+
     experience_rate = 0
     total_experience = 0
     experience_till_next_level = 0
@@ -174,7 +181,6 @@ def get_skill_info(skill_name):
             # print(active_skill.skill_name)
             # print(skill_name)
             if active_skill_name == skill_name:
-                reward_activity()
                 base_experience_rate = get_base_experience_rate(
                     active_skill_name, activity)
                 experience_rate = calculate_experience_rate(
