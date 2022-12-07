@@ -1,7 +1,7 @@
 # IdleScape
 
-Game can be tested/played [HERE!](https://idle-scape.fly.dev/)
 -
+Game can be tested/played [HERE!](https://idle-scape.fly.dev/)
 
 A [RuneScape](https://www.runescape.com/) influenced idle/[incremental](https://en.wikipedia.org/wiki/Incremental_game) -game which's objective is very simple: level and build up your character slowly but surely with mostly inactive gameplay.
 
