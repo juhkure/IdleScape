@@ -108,6 +108,8 @@ def reward_activity():
     if user_activity is not None:
         passed_time = now - user_activity.action_at
         passed_time_in_seconds = passed_time.total_seconds()
+        if passed_time_in_seconds > 86400:
+            passed_time_in_seconds = 86400
 
         sql = "SELECT activity_name, skill_name, base_xp FROM activity_skill WHERE activity_name=:activity"
         activity_skills = db.session.execute(sql, {"activity": user_activity.activity_name})
