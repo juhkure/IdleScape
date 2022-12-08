@@ -125,8 +125,7 @@ def reward_activity():
             remaining_xp = user_skills[3]
 
             # Experience calculation, determines speed of progression
-            gained_xp = (passed_time_in_seconds / 100) * (activity_skill.base_xp +
-                                                          activity_skill.base_xp * 0.1 * (current_level - 1))
+            gained_xp = (passed_time_in_seconds / 100) * (activity_skill.base_xp + activity_skill.base_xp * 0.1 * (current_level - 1))
 
             # While loop to calculate new level
             new_xp = current_xp + gained_xp
