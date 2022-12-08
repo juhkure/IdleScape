@@ -250,7 +250,7 @@ def calculate_experience_rate(base_xp, level):
 
 def get_account_skills():
     user_id = session["user_id"]
-    sql = "SELECT skill_name, level, experience_left FROM user_skills WHERE user_id=:user_id ORDER BY skill_name"
+    sql = "SELECT skill_name, level, experience_left, experience, current_level_xp FROM user_skills WHERE user_id=:user_id ORDER BY skill_name"
     result = db.session.execute(sql, {"user_id": user_id})
     skills = result.fetchall()
 

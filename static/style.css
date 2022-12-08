@@ -146,13 +146,17 @@ a:visited {
     max-width: 17em;
 }
 
-.xp_bar {
-    width: 2em;
+.xp_bar_background {
     height: 0.5em;
     background-color: red;
     display: block;
 }
 
+.xp_bar {
+    height: 0.5em;
+    background-color: green;
+    display: block;
+}
 
 
 .stats {
