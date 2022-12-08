@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS user_skills (
     skill_name TEXT REFERENCES skills,
     level INTEGER,
     experience INTEGER,
+    current_level_xp INTEGER,
     experience_left INTEGER
 );
 
