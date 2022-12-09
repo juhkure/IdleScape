@@ -179,7 +179,7 @@ def passed_time_in_seconds(last_action):
     if passed_time > 86400:
         passed_time = 86400
 
-    return passed_time
+    return passed_time # Returns a maximum of 24hours in seconds
 
 def get_skill_info(skill_name):
     reward_user()
