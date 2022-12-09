@@ -59,7 +59,7 @@ def create(username, password1, password2):
 
 def set_activity(activity):
     user_id = session["user_id"]
-    current_activity = reward_activity()
+    current_activity = reward_user()
 
     if current_activity == activity:
         print("Experience rewarded!")
@@ -98,9 +98,8 @@ def get_active_skills(activity):
     return skills
 
 # Rewards user with accumulated experience if active activity found
-def reward_activity():
+def reward_user():
     user_id = session["user_id"]
-    now = datetime.now()
     sql = "SELECT user_id, activity_name, action_at FROM user_activity WHERE user_id=:user_id AND active"
     result = db.session.execute(sql, {"user_id": user_id})
     user_activity = result.fetchone()
@@ -108,15 +107,23 @@ def reward_activity():
     if user_activity is None:
         return None  # No active activity
 
-    passed_time = now - user_activity.action_at
-    passed_time_in_seconds = passed_time.total_seconds()
-    if passed_time_in_seconds > 86400:
-        passed_time_in_seconds = 86400
+    reward_activity(user_activity.activity_name, user_activity.action_at)
+            
+    sql = "UPDATE user_activity SET action_at=:current_time " \
+          "WHERE user_id=:user_id AND activity_name=:activity"
+    db.session.execute(sql, {"current_time": datetime.now(), "user_id": user_id, "activity": user_activity.activity_name})
+    db.session.commit()
+
+    return user_activity.activity_name  # Active activity found and xp was rewarded
+
+def reward_activity(activity_name, past_action):
+    user_id = session["user_id"]
+    passed_time = passed_time_in_seconds(past_action)
 
     sql = "SELECT activity_name, skill_name, base_xp FROM activity_skill WHERE activity_name=:activity"
-    activity_skills = db.session.execute(sql, {"activity": user_activity.activity_name})
+    activity_skills = db.session.execute(sql, {"activity": activity_name})
 
-    # Calculate experience earned for all skills, then insert it to user_skills
+    # Calculate experience earned for all affected skills, then insert it to user_skills
     for activity_skill in activity_skills:
         sql = "SELECT experience, level, current_level_xp, experience_left " \
                 "FROM user_skills WHERE user_id=:user_id AND skill_name=:name"
@@ -128,14 +135,14 @@ def reward_activity():
         current_level_xp = user_skills[2]
         remaining_xp = user_skills[3]
 
-
+        # This is to take into account users affected by database update (in production)
         if current_level_xp == -1:
             current_level_xp = current_and_next_level_experience(current_level)[0]
         if remaining_xp == 999999:
             remaining_xp = current_and_next_level_experience(current_level)[1] - current_xp
 
         # Experience calculation, determines speed of progression
-        gained_xp = (passed_time_in_seconds / 100) * (activity_skill.base_xp + activity_skill.base_xp * 0.1 * (current_level - 1))
+        gained_xp = (passed_time / 100) * (activity_skill.base_xp + activity_skill.base_xp * 0.1 * (current_level - 1))
 
         # While loop to calculate new level
         new_xp = current_xp + gained_xp
@@ -148,13 +155,7 @@ def reward_activity():
         remaining_xp = new_level_xp - new_xp
 
         update_skill(current_level, new_level, gained_xp, current_level_xp, remaining_xp, user_id, activity_skill.skill_name)
-            
-    sql = "UPDATE user_activity SET action_at=:current_time " \
-          "WHERE user_id=:user_id AND activity_name=:activity"
-    db.session.execute(sql, {"current_time": datetime.now(), "user_id": user_id, "activity": user_activity.activity_name})
-    db.session.commit()
-
-    return user_activity.activity_name  # Active activity found and xp was rewarded
+    return 1
 
 def update_skill(current_level, new_level, gained_xp, current_level_xp, remaining_xp, user_id, skill_name):
     if new_level > current_level: # Update if level changed
@@ -172,8 +173,16 @@ def update_skill(current_level, new_level, gained_xp, current_level_xp, remainin
             "user_id": user_id, "skill": skill_name})
     db.session.commit()
 
+def passed_time_in_seconds(last_action):
+    passed_time = datetime.now() - last_action
+    passed_time = passed_time.total_seconds()
+    if passed_time > 86400:
+        passed_time = 86400
+
+    return passed_time
+
 def get_skill_info(skill_name):
-    reward_activity()
+    reward_user()
 
     experience_rate = 0
     total_experience = 0
