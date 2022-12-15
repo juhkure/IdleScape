@@ -262,14 +262,14 @@ def login(username, password):
     user = result.fetchone()
     if user is None:
         return 1
+        
+    hash_value = user.password
+    if check_password_hash(hash_value, password):
+        session["username"] = username
+        session["user_id"] = user.id
+        return 2
     else:
-        hash_value = user.password
-        if check_password_hash(hash_value, password):
-            session["username"] = username
-            session["user_id"] = user.id
-            return 2
-        else:
-            return 3
+        return 3
 
 
 def logout():
