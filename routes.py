@@ -89,8 +89,3 @@ def set_activity():
     return redirect("/main_menu")
 
     # Todo fetch selected activity and assign it to user
-
-@app.route("/update_activity", methods=["POST"])
-def update_activity():
-    # Todo
-    return
