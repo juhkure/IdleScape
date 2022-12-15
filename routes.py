@@ -1,6 +1,7 @@
 from app import app
 import account
-from flask import render_template, jsonify, request, session, redirect, flash, url_for
+from flask import render_template, jsonify, request, session, redirect, flash, abort
+import secrets
 
 
 
@@ -31,6 +32,7 @@ def experience_rate():
 def login():
     username = request.form["username"]
     password = request.form["password"]
+    session["csrf_token"] = secrets.token_hex(16)
 
     confirmation = account.login(username, password)
     if confirmation == 1: # User not found
@@ -75,6 +77,8 @@ def create_account():
 
 @app.route("/set_activity", methods=["POST"])
 def set_activity():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     activity = request.form["activity"]
     if activity != "not selected":
         account.set_activity(activity)
