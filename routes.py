@@ -46,9 +46,6 @@ def login():
 
 @app.route("/logout")
 def logout():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
-    
     del session["csrf_token"]
     
     account.logout()
