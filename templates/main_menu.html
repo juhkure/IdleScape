@@ -70,94 +70,93 @@ Main menu
 </div>
 
 
-<a href="/logout">
-    <--Log out</a>
-        {% else %}
-        <p> You're not logged in </p>
-        {%  endif %}
+<a href="/logout"> <--Log out</a>
+    {% else %}
+    <p> You're not logged in </p>
+    {%  endif %}
 
-        <script>
-            const skillInfo = document.querySelector('.skillInfo');
-            const box = document.querySelector('.box');
-            const skills = ["agility", "attack", "defence", "fishing", "hitpoints", "prayer", "strength", "thieving"];
-            let isSkillInfo = false;
-            let timer = Date.now();
+    <script>
+        const skillInfo = document.querySelector('.skillInfo');
+        const box = document.querySelector('.box');
+        const skills = ["agility", "attack", "defence", "fishing", "hitpoints", "prayer", "strength", "thieving"];
+        let isSkillInfo = false;
+        let timer = Date.now();
 
-            let length = skills.length;
-            console.log("TERVE");
-            for (let i = 0; i < length; i++) {
-                console.log("hei");
-                asd = document.querySelector('.xp_bar_' + skills[i]);
-                xp = asd.getAttribute('experience');
-                xpLeft = asd.getAttribute('experienceleft');
-                currentLevelXp = asd.getAttribute('currentlevelxp');
-                ratio = ((Number(xp) - Number(currentLevelXp)) / (Number(xp) + Number(xpLeft) - Number(currentLevelXp)));
-                console.log(ratio, xp, currentLevelXp, xpLeft);
+        let length = skills.length;
+        console.log("TERVE");
+        for (let i = 0; i < length; i++) {
+            console.log("hei");
+            asd = document.querySelector('.xp_bar_' + skills[i]);
+            xp = asd.getAttribute('experience');
+            xpLeft = asd.getAttribute('experienceleft');
+            currentLevelXp = asd.getAttribute('currentlevelxp');
+            ratio = ((Number(xp) - Number(currentLevelXp)) / (Number(xp) + Number(xpLeft) - Number(currentLevelXp)));
+            console.log(ratio, xp, currentLevelXp, xpLeft);
 
-                asd.style.width = (ratio * 100 + 1) + '%';
-            };
+            asd.style.width = (ratio * 100 + 1) + '%';
+        };
 
-            function showSkillInfoPopup() {
-                if (!isSkillInfo) {
-                    box.style.borderTopRightRadius = '0em';
-                    skillInfo.innerHTML = "<h2>Click to show more info<h2>" +
-                        "<p id='popup'>(note: spam clicking doesn't give exp)</p>";
-                    skillInfo.style.visibility = 'visible';
-                }
+         function showSkillInfoPopup() {
+             if (!isSkillInfo) {
+                 box.style.borderTopRightRadius = '0em';
+                 skillInfo.innerHTML = "<h2>Click to show more info<h2>" +
+                     "<p id='popup'>(note: spam clicking doesn't give exp)</p>";
+                 skillInfo.style.visibility = 'visible';
+             }
+         }
+
+        function hideSkillInfoPopup() {
+            if (!isSkillInfo) {
+                box.style.borderTopRightRadius = '3em';
+                skillInfo.style.visibility = 'hidden';
             }
+        }
 
-            function hideSkillInfoPopup() {
-                if (!isSkillInfo) {
-                    box.style.borderTopRightRadius = '3em';
-                    skillInfo.style.visibility = 'hidden';
-                }
-            }
+        function showSkillInfo(skillName) {
+            let latestClick = Date.now();
+            if ((latestClick - timer) < 250) {
+                console.log("Calm down!");
+                timer = Date.now();
+            } else {
+                console.log(timer);
+                timer = Date.now();
+                fetch('/skill_info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: skillName })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const rightLevel = document.querySelector('.' + skillName + '_level');
+                        console.log(rightLevel.innerHTML);
 
-            function showSkillInfo(skillName) {
-                let latestClick = Date.now();
-                if ((latestClick - timer) < 250) {
-                    console.log("Calm down!");
-                    timer = Date.now();
-                } else {
-                    console.log(timer);
-                    timer = Date.now();
-                    fetch('/skill_info', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ name: skillName })
+                        const rightExperience = document.querySelector('.' + skillName + '_experience');
+                        console.log(rightExperience.innerHTML);
+
+                        let currentLevel = data.currentLevel;
+                        let totalExperience = data.totalExperience;
+                        let experienceRate = data.experienceRate;
+                        let experienceLeft = data.experienceLeft;
+                        rightLevel.innerHTML = currentLevel;
+                        rightExperience.innerHTML = experienceLeft;
+
+                        skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
+                            "<p>Current level: " + currentLevel + "</p>" +
+                            "<p>Experience left for next level: " + experienceLeft + "</p>" +
+                            "<p>Total experience: " + totalExperience + "</p>" +
+                            "<p>Current experience rate: " + experienceRate + " xp" +
+                            "<p>for every 100 seconds.</p>";
+                        skillInfo.style.visibility = 'visible';
+                        isSkillInfo = true;
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            const rightLevel = document.querySelector('.' + skillName + '_level');
-                            console.log(rightLevel.innerHTML);
-
-                            const rightExperience = document.querySelector('.' + skillName + '_experience');
-                            console.log(rightExperience.innerHTML);
-
-                            let currentLevel = data.currentLevel;
-                            let totalExperience = data.totalExperience;
-                            let experienceRate = data.experienceRate;
-                            let experienceLeft = data.experienceLeft;
-                            rightLevel.innerHTML = currentLevel;
-                            rightExperience.innerHTML = experienceLeft;
-
-                            skillInfo.innerHTML = "<h2>" + skillName + "</h2>" +
-                                "<p>Current level: " + currentLevel + "</p>" +
-                                "<p>Experience left for next level: " + experienceLeft + "</p>" +
-                                "<p>Total experience: " + totalExperience + "</p>" +
-                                "<p>Current experience rate: " + experienceRate + " xp" +
-                                "<p>for every 100 seconds.</p>";
-                            skillInfo.style.visibility = 'visible';
-                            isSkillInfo = true;
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                }
-
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             }
-        </script>
 
-        {% endblock %}
+        }
+    </script>
+
+{% endblock %}
