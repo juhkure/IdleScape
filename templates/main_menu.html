@@ -85,7 +85,6 @@ Main menu
         let length = skills.length;
         console.log("TERVE");
         for (let i = 0; i < length; i++) {
-            console.log("hei");
             asd = document.querySelector('.xp_bar_' + skills[i]);
             xp = asd.getAttribute('experience');
             xpLeft = asd.getAttribute('experienceleft');
@@ -118,7 +117,6 @@ Main menu
                 console.log("Calm down!");
                 timer = Date.now();
             } else {
-                console.log(timer);
                 timer = Date.now();
                 fetch('/skill_info', {
                     method: 'POST',
@@ -130,10 +128,8 @@ Main menu
                     .then(response => response.json())
                     .then(data => {
                         const rightLevel = document.querySelector('.' + skillName + '_level');
-                        console.log(rightLevel.innerHTML);
 
                         const rightExperience = document.querySelector('.' + skillName + '_experience');
-                        console.log(rightExperience.innerHTML);
 
                         let currentLevel = data.currentLevel;
                         let totalExperience = data.totalExperience;
