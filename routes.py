@@ -92,5 +92,3 @@ def set_activity():
         flash("Activity not selected!", "error")
 
     return redirect("/main_menu")
-
-    # Todo fetch selected activity and assign it to user
