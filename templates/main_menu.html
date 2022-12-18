@@ -45,7 +45,7 @@ Main menu
 </span>
 
 
-<div class="stats">
+<div class="stats" data-csrf="{{ session.csrf_token }}">
     {% for skill in skills %}
     <span class="skill skill-{{ skill.skill_name }}">
 
@@ -81,16 +81,16 @@ Main menu
         const skills = ["agility", "attack", "defence", "fishing", "hitpoints", "prayer", "strength", "thieving"];
         let isSkillInfo = false;
         let timer = Date.now();
+        const stats = document.querySelector(".stats");
+        const csrfToken = stats.dataset.csrf;
 
         let length = skills.length;
-        console.log("TERVE");
         for (let i = 0; i < length; i++) {
             asd = document.querySelector('.xp_bar_' + skills[i]);
             xp = asd.getAttribute('experience');
             xpLeft = asd.getAttribute('experienceleft');
             currentLevelXp = asd.getAttribute('currentlevelxp');
             ratio = ((Number(xp) - Number(currentLevelXp)) / (Number(xp) + Number(xpLeft) - Number(currentLevelXp)));
-            console.log(ratio, xp, currentLevelXp, xpLeft);
 
             asd.style.width = (ratio * 100 + 1) + '%';
         };
@@ -123,7 +123,7 @@ Main menu
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ name: skillName })
+                    body: JSON.stringify({ name: skillName, csrf_token: csrfToken })
                 })
                     .then(response => response.json())
                     .then(data => {

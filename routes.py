@@ -19,7 +19,9 @@ def main_menu():
 # Also updates the progress to the skill
 @app.route("/skill_info", methods=["POST"])
 def experience_rate():
-    skill_name = request.json['name']
+    if session["csrf_token"] != request.json["csrf_token"]:
+        abort(403)
+    skill_name = request.json["name"]
     info = account.get_skill_info(skill_name)
 
     current_level = info[0]
